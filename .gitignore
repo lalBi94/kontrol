@@ -37,4 +37,3 @@ dist-ssr
 
 # accounts 
 api/data/*/
-!api/data/admin/
