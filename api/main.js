@@ -1,3 +1,13 @@
+const Users = require("./service/Users");
+const usersd = new Users();
+
+usersd.registerSomeone({
+    user: "admin",
+    password: "kontrol-admin",
+    level: 0,
+    img: "https://media.tenor.com/jonhQGiKkIQAAAAM/samdreamsmaker-samuel-guizani.gif",
+});
+
 const path = require("path");
 const express = require("express");
 const cors = require("cors");
