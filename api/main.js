@@ -1,17 +1,33 @@
-const Users = require("./service/Users");
-const usersd = new Users();
-
-usersd.registerSomeone({
-    user: "admin",
-    password: "kontrol-admin",
-    level: 0,
-    img: "https://media.tenor.com/jonhQGiKkIQAAAAM/samdreamsmaker-samuel-guizani.gif",
-});
-
 const path = require("path");
 const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
+const fs = require("fs/promises");
+
+(async () => {
+    try {
+        const path_data = path.join(__dirname, "data");
+        const path_admin = path.join(path_data, "admin");
+
+        await fs.access(path_data).catch(async () => {
+            await fs.mkdir(path_data, { recursive: true });
+        });
+
+        await fs.access(path_admin).catch(async () => {
+            const Users = require("./service/Users");
+            const usersd = new Users();
+
+            await usersd.registerSomeone({
+                user: "admin",
+                password: "kontrol-admin",
+                level: 0,
+                img: "https://media.tenor.com/jonhQGiKkIQAAAAM/samdreamsmaker-samuel-guizani.gif",
+            });
+        });
+    } catch (error) {
+        console.error(error);
+    }
+})();
 
 require("dotenv").config({ path: path.join(__dirname, ".env") });
 

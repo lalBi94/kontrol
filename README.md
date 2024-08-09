@@ -11,6 +11,7 @@ Kontrol est une application web auto-hébergeable conçue pour servir de centre 
     -   [Installation du projet 🏗️](#installation-du-projet-️)
         -   [De façon permanente (manuel) 🔧](#de-façon-permanente-manuel-)
         -   [De façon permanente (semi-automatique) ⚙️](#de-façon-permanente-semi-automatique-️)
+    -   [Informations importante](#informations-importante)
     -   [Contribuer 🤝](#contribuer-)
     -   [Licence 📜](#licence-)
     -   [Contact 📧](#contact-)
@@ -115,9 +116,14 @@ Assurez-vous d'avoir [Node.js (>= v15)](https://nodejs.org/en/download/package-m
 
 4. Exposez votre port à l'aide de `ufw` et installez `NGINX` sur votre machine (et configurez-le).
 
+## Informations importante
+
+Vous devez configurer les variables d'environnement se trouvant `.env` et `api/.env` partir des `.env.example`.
+Ils ne sont pas présent au clonage du répo mais dans le processus d'initialisation du serveur, un fichier `api/.db` devrait apparaitre ainsi qu'un dossier `api/data/admin`. Le mot de passe pour accéder au compte administrateur est `kontrol-admin`.
+
 ## Contribuer 🤝
 
-Les contributions sont les bienvenues ! Veuillez forker le dépôt et soumettre une pull request avec un nom de branche explicite pour toute amélioration ou correction de bug.
+Les contributions sont les bienvenues ! Veuillez forker le dépôt et soumettre une pull request avec un nom de branche explicite pour toute amélioration ou correction de bug. Si vous avez modifier un fichier, libre a vous de le co-signer avec votre nom / pseudo.
 
 ## Licence 📜
 
