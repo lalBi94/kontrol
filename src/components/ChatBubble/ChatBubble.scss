@@ -1,0 +1,46 @@
+@import "../../index.scss";
+
+.right-side {
+    justify-content: right;
+    flex-direction: row-reverse;
+}
+
+.left-side {
+    justify-content: left;
+    flex-direction: row;
+}
+
+.chatbubble-container {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    gap: 10px;
+
+    .chatbubble-profile {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        .chatbubble-profile-avatar {
+        }
+
+        .chatbubble-profile-text {
+            color: $white;
+        }
+    }
+
+    .chatbubble-chat-container {
+        display: flex;
+        background: $black;
+        align-items: center;
+        border-radius: 9px;
+        padding: 10px;
+        max-width: 50%;
+
+        .chatbubble-chat {
+            color: $white;
+            font-family: Helvetica, sans-serif;
+        }
+    }
+}

@@ -1,0 +1,120 @@
+@import "../../index.scss";
+
+.file-manager-container {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    width: 70%;
+    border: 1px solid $light_black;
+    padding: 20px;
+    justify-content: center;
+
+    .file-manager-head-container {
+        display: flex;
+        flex-direction: row-reverse;
+        justify-content: space-between;
+        align-items: center;
+
+        @media (max-width: $gen_resp) {
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .file-manager-head-actions {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 5px;
+
+            .file-manager-head-action {
+                display: flex;
+                width: 35px;
+                height: 35px;
+            }
+        }
+
+        .file-manager-paths {
+            color: $white;
+        }
+    }
+
+    .dragzone {
+        display: flex;
+        border-radius: 10px;
+        border: 3px dashed $light_black;
+        height: 150px;
+        justify-content: center;
+        align-items: center;
+        color: $white;
+
+        .dragzone-txt {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: $white;
+        }
+    }
+
+    .file-manager-explorer {
+        display: flex;
+        flex-direction: row;
+        gap: 15px;
+        flex-wrap: wrap;
+        justify-content: center;
+
+        .file-manager-entity {
+            display: flex;
+            overflow: auto;
+            color: $white;
+            gap: 5px;
+            border: 1px solid $light_black;
+            border-radius: 5px;
+            cursor: pointer;
+            justify-content: center;
+            padding: 15px;
+            position: relative;
+            width: 75px;
+            height: 75px;
+            overflow: auto;
+
+            .file-manager-entity-more {
+                position: absolute;
+                top: 0px;
+                right: 0px;
+                padding: 0;
+                border: none;
+                color: white;
+
+                .file-manager-entity-more-actions {
+                    z-index: 99999;
+                }
+
+                &:hover {
+                    background: transparent;
+                    color: rgb(157, 157, 157);
+                }
+            }
+
+            .file-manager-entity-logo {
+                font-size: 30px;
+                align-self: center;
+            }
+
+            .file-manager-entity-name {
+                flex-wrap: wrap;
+                text-align: center;
+                color: $white;
+            }
+        }
+
+        .dir {
+        }
+
+        .file {
+        }
+    }
+}

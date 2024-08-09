@@ -1,0 +1,140 @@
+@import "../../index.scss";
+
+#users-list-gen-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    #chat-container {
+        display: flex;
+        flex-direction: row;
+        height: 100%;
+        gap: 10px;
+        width: 100%;
+        flex-wrap: wrap;
+
+        #messagerie-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 80%;
+            gap: 10px;
+
+            @media (max-width: $gen_resp) {
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+            }
+
+            #stock-message {
+                background: $light_black;
+                height: 60vh;
+                overflow: auto;
+                border-radius: 4px;
+                display: flex;
+                flex-direction: column;
+                gap: 15px;
+                padding: 10px;
+                box-sizing: border-box;
+
+                @media (max-width: $gen_resp) {
+                    width: 100%;
+                }
+            }
+
+            #messagerie-actions {
+                width: 100%;
+
+                @media (max-width: $gen_resp) {
+                    justify-content: center;
+                    align-items: center;
+                }
+
+                #messagerie-actions-forms {
+                    display: flex;
+                    flex-direction: row;
+                    gap: 10px;
+
+                    @media (max-width: $gen_resp) {
+                        width: 100%;
+                        justify-content: center;
+                        align-items: center;
+                    }
+
+                    div {
+                        width: 100%;
+
+                        #messagerie-actions-ipt {
+                            width: 100%;
+                        }
+                    }
+                }
+            }
+        }
+
+        #chat-navigation {
+            display: flex;
+            overflow: auto;
+            gap: 15px;
+
+            @media (max-width: $gen_resp) {
+                width: 100%;
+                flex-direction: row;
+                align-items: center;
+            }
+
+            #chat-discussion-list {
+                display: flex;
+                gap: 10px;
+                flex-direction: column;
+
+                @media (max-width: $gen_resp) {
+                    flex-direction: row;
+                }
+
+                .chat-discussion-list-chat {
+                    position: relative;
+                    .chat-discussion-list-del {
+                        position: absolute;
+                        top: 5px;
+                        right: 5px;
+                        z-index: 99999;
+                        width: 30px;
+                        height: 30px;
+                    }
+                }
+
+                #ephemere-zone {
+                    &:hover {
+                        background-size: cover;
+                        background-position: center;
+                        background-repeat: no-repeat;
+                        background-image: url("../../assets/gifs/clouds.gif");
+                    }
+                }
+            }
+        }
+    }
+
+    #users-list-gen-container-title {
+    }
+
+    #users-list-container {
+        display: flex;
+        flex-direction: row;
+        gap: 20px;
+
+        .users-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+            .users-txt {
+                color: $white;
+            }
+        }
+    }
+}

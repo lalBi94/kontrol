@@ -1,0 +1,287 @@
+{
+	"info": {
+		"_postman_id": "e02cf405-df43-485e-ad6f-1054be808f94",
+		"name": "Pandora API",
+		"description": "Collection pour l'API Pandora.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "37576789"
+	},
+	"item": [
+		{
+			"name": "Récupérer les plus gros fichiers",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"user\": \"<nom_utilisateur>\"}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/pandora/feedOlympus",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"pandora",
+						"feedOlympus"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Supprimer un fichier ou un dossier",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"user\": \"<nom_utilisateur>\", \"pth\": \"<chemin_fichier>\"}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/pandora/deleteSomething",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"pandora",
+						"deleteSomething"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Renommer un fichier ou un dossier",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"user\": \"<nom_utilisateur>\", \"pth\": \"<chemin_fichier>\", \"newName\": \"<nouveau_nom>\"}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/pandora/renameSomething",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"pandora",
+						"renameSomething"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Récupérer un dossier compressé",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"user\": \"<nom_utilisateur>\", \"pth\": \"<chemin_dossier>\"}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/pandora/retreiveZip",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"pandora",
+						"retreiveZip"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Récupérer un fichier",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"user\": \"<nom_utilisateur>\", \"pth\": \"<chemin_fichier>\"}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/pandora/retreiveFile",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"pandora",
+						"retreiveFile"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Créer un répertoire",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"user\": \"<nom_utilisateur>\", \"dirName\": \"<nom_répertoire>\", \"pth\": \"<chemin>\"}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/pandora/createDir",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"pandora",
+						"createDir"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Envoyer des fichiers à l'espace de stockage",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "multipart/form-data"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "user",
+							"value": "<nom_utilisateur>",
+							"type": "text"
+						},
+						{
+							"key": "pth",
+							"value": "<chemin>",
+							"type": "text"
+						},
+						{
+							"key": "files",
+							"description": "Liste des fichiers à stocker",
+							"type": "file",
+							"src": []
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/pandora/sendFileToStorage",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"pandora",
+						"sendFileToStorage"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtenir les détails de l'espace de stockage",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"level\": <niveau_abonnement>, \"user\": \"<nom_utilisateur>\"}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/pandora/getStorageDetails",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"pandora",
+						"getStorageDetails"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Naviguer dans l'espace de stockage",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"user\": \"<nom_utilisateur>\", \"target_dir\": \"<chemin_répertoire>\"}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/pandora/navigation",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"pandora",
+						"navigation"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

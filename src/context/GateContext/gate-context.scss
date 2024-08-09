@@ -1,0 +1,60 @@
+@import "../../index.scss";
+
+#gate-context-container-visible {
+    display: flex;
+    gap: 25px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background: $light_black;
+    padding: 20px;
+    border-radius: 15px;
+    box-sizing: border-box;
+
+    @media (max-width: $gen_resp) {
+        width: 95%;
+    }
+
+    #gate-context-title {
+        color: $white;
+    }
+
+    #gate-context-actions-container {
+        display: flex;
+        gap: 10px;
+        flex-direction: column;
+
+        label {
+            color: $white;
+        }
+    }
+
+    #gate-context-users {
+        display: flex;
+        flex-direction: row;
+        text-align: center;
+        overflow-x: auto;
+
+        :hover {
+            cursor: pointer;
+            background: $black;
+        }
+
+        .selected {
+            background: $black;
+        }
+
+        .gate-context-user {
+            border-radius: 5px;
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            padding: 20px;
+
+            .gate-context-user-name {
+                color: $white;
+            }
+        }
+    }
+}

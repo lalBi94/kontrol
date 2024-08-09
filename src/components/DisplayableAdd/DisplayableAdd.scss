@@ -1,0 +1,37 @@
+@import "../../index.scss";
+
+.displayable-add {
+    padding: 16px;
+    background: $light_black;
+    border-radius: 8px;
+    min-width: 100px;
+    min-height: 35px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+
+    .displayable-add-btn {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: $white;
+        font-family: Arial, Helvetica, sans-serif;
+        text-decoration: none;
+    }
+
+    &:hover {
+        cursor: pointer;
+        transform: scale(1.05);
+        border-radius: 9px;
+        transition: 0.2s;
+
+        .displayable-add-btn {
+            transform: rotate(360deg);
+            transition: 0.9s;
+        }
+    }
+}

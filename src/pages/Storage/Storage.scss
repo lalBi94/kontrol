@@ -1,0 +1,28 @@
+@import "../../index.scss";
+
+#storage-container {
+    margin-top: 20px;
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    flex-wrap: wrap;
+
+    #more-details {
+        color: $white;
+
+        &:hover {
+            background: $light_black;
+        }
+    }
+
+    #storage-data-container {
+        display: flex;
+        flex-direction: row;
+        gap: 20px;
+        width: 70%;
+        flex-wrap: wrap;
+        justify-content: space-evenly;
+    }
+}

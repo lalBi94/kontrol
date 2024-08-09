@@ -1,0 +1,248 @@
+@import "../../index.scss";
+
+#home-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    #home-webfav {
+        display: flex;
+        flex-direction: column;
+        gap: 13px;
+
+        #home-webfav-list {
+            display: flex;
+            flex-direction: row;
+            gap: 20px;
+            flex-wrap: wrap;
+
+            .home-webfav-displayable {
+                position: relative;
+
+                .home-webfav-displayable-btns {
+                    display: flex;
+                    flex-direction: row;
+                    gap: 5px;
+                    position: absolute;
+                    top: 5px;
+                    left: 5px;
+                    z-index: 99;
+
+                    .home-webfav-displayable-btn {
+                        width: 30px;
+                    }
+                }
+            }
+        }
+
+        #home-webfave-headers {
+            display: flex;
+            flex-direction: row;
+            gap: 20px;
+            align-items: center;
+            #home-webfav-title {
+                color: $white;
+            }
+
+            #home-webfav-modif-btn {
+                padding: 0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 38px;
+                height: 30px;
+            }
+        }
+    }
+
+    #home-data {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+
+        @media (max-width: $gen_resp) {
+            justify-content: center;
+            align-items: center;
+            display: flex;
+        }
+    }
+
+    #home-tools {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+
+        #home-tools-title {
+            color: $white;
+        }
+
+        #home-tools-list {
+            display: flex;
+            flex-direction: row;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        #montage {
+            &:hover {
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
+                background-image: url("../../assets/gifs/canva.gif");
+            }
+        }
+
+        #gen_ia {
+            &:hover {
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
+                background-image: url("../../assets/gifs/chatgpt.gif");
+            }
+        }
+
+        #gen_ia2 {
+            &:hover {
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
+                background-image: url("../../assets/gifs/gemini.gif");
+            }
+        }
+
+        #translate {
+            &:hover {
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
+                background-image: url("../../assets/gifs/deepl.gif");
+            }
+        }
+
+        #convert {
+            &:hover {
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
+                background-image: url("../../assets/gifs/convert.gif");
+            }
+        }
+
+        #pdf_mod {
+            &:hover {
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
+                background-image: url("../../assets/gifs/pdftools.gif");
+            }
+        }
+
+        #grosfichiers {
+            &:hover {
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
+                background-image: url("../../assets/image/gros-fichier-logo.webp");
+            }
+        }
+
+        #img_mod {
+            &:hover {
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
+                background-image: url("../../assets/gifs/imgtools.gif");
+            }
+        }
+
+        #photo_ia {
+            &:hover {
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
+                background-image: url("../../assets/image/craiyon.jpeg");
+            }
+        }
+    }
+
+    #home-recent {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+
+        #home-recent-title {
+            color: $white;
+        }
+    }
+
+    #home-categories {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+
+        #home-categories-title {
+            color: $white;
+        }
+
+        #home-categories-list {
+            display: flex;
+            flex-direction: row;
+            gap: 20px;
+            flex-wrap: wrap;
+
+            #galerie {
+                &:hover {
+                    background-size: cover;
+                    background-position: center;
+                    background-repeat: no-repeat;
+                    background-image: url("../../assets/gifs/galery.gif");
+                }
+            }
+
+            #files {
+                &:hover {
+                    background-size: cover;
+                    background-position: center;
+                    background-repeat: no-repeat;
+                    background-image: url("../../assets/gifs/files.gif");
+                }
+            }
+
+            #domain-gestion {
+                &:hover {
+                    background-size: cover;
+                    background-position: center;
+                    background-repeat: no-repeat;
+                    background-image: url("../../assets/gifs/admin.gif");
+                }
+            }
+
+            #calendar {
+                &:hover {
+                    background-size: cover;
+                    background-position: center;
+                    background-repeat: no-repeat;
+                    background-image: url("../../assets/gifs/calendar.gif");
+                }
+            }
+
+            #messagerie {
+                &:hover {
+                    background-size: cover;
+                    background-position: center;
+                    background-repeat: no-repeat;
+                    background-image: url("../../assets/gifs/messagerie.gif");
+                }
+            }
+
+            #notes {
+                &:hover {
+                    background-size: cover;
+                    background-position: center;
+                    background-repeat: no-repeat;
+                    background-image: url("../../assets/gifs/notes.gif");
+                }
+            }
+        }
+    }
+}

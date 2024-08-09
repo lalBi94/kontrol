@@ -1,21 +1,22 @@
 MIT License
 
-Copyright (c) 2024 General Zod
+Copyright (c) 2024 Bilal Boudjemline
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+Permission est accordée, gratuitement, à toute personne obtenant une copie de cette application
+web, incluant le frontend, le backend (API et socket), ainsi que les fichiers de documentation
+associés (le "Code"), de traiter le Code sans restriction, y compris sans limitation les droits
+de l'utilisation, de la copie, de la modification, de la fusion, de la publication, de la distribution,
+de la sous-licence et/ou de la vente du Code, à condition que les avis de droits d'auteur ci-dessus
+et cette permission soient inclus dans toutes les copies ou parties substantielles du Code.
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+Le Code est fourni "tel quel", sans garantie d'aucune sorte, expresse ou implicite, y compris mais
+sans s'y limiter les garanties implicites de commerciabilité, d'adéquation à un usage particulier
+et de non-violation. En aucun cas les auteurs ou titulaires de droits d'auteur ne peuvent être tenus
+responsables de toute réclamation, dommage ou autre responsabilité, que ce soit dans une action de
+contrat, de délit ou autrement, découlant de, ou en connexion avec, le Code ou l'utilisation ou
+d'autres transactions dans le Code.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+IMPORTANT : La vente du Code, ainsi que la vente de tout service nécessitant l'intégration ou la
+contribution du Code pour fonctionner, est strictement interdite. La distribution ou l'utilisation
+du Code à des fins commerciales, ou la vente de services utilisant le Code comme composant, est
+également interdite.
