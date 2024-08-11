@@ -71,7 +71,8 @@ module.exports = (io) => {
                             moment()
                                 .locale("fr")
                                 .format("MMMM Do YYYY à hh:mm"),
-                            avatar
+                            avatar,
+                            id
                         );
                     }
                 }

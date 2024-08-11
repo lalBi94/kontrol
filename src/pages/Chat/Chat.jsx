@@ -51,7 +51,7 @@ export default function Chat() {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        if (message.trim() === "") return; // Prevent sending empty messages
+        if (message.trim() === "") return;
 
         setMessage("");
 
@@ -124,12 +124,13 @@ export default function Chat() {
 
             socket.on("kpture.messages", (messages) => {
                 let stock = [];
+                let i = 0;
 
                 for (let m of messages) {
                     if (m.author && m.message && m.date && m.avatar) {
                         stock.push(
                             <ChatBubble
-                                key={`${m.author}-${m.date}`}
+                                key={i}
                                 name={m.author}
                                 chat={m.message}
                                 date={m.date}
@@ -139,6 +140,8 @@ export default function Chat() {
                                 }
                             />
                         );
+
+                        ++i;
                     }
                 }
 
@@ -172,12 +175,12 @@ export default function Chat() {
 
             socket.on(
                 "kpture.newMessage",
-                (discussion, message, author, date, avatar) => {
+                (discussion, message, author, date, avatar, id) => {
                     if (discussion === currentDiscussionName) {
                         setChat((prevChat) => [
                             ...prevChat,
                             <ChatBubble
-                                key={`${discussion}-${date}-${author}`} // Added key for React list items
+                                key={id}
                                 name={author}
                                 chat={message}
                                 date={date}
@@ -245,8 +248,8 @@ export default function Chat() {
                 </Typography>
                 {users.length > 0 ? (
                     <Stack id="users-list-container">
-                        {users.map((user) => (
-                            <Box className="users-container" key={user.user}>
+                        {users.map((user, k) => (
+                            <Box className="users-container" key={k}>
                                 <Badge
                                     variant="solid"
                                     color={
@@ -279,8 +282,11 @@ export default function Chat() {
                         <Divider />
 
                         <Box id="chat-discussion-list">
-                            {discussions.map((discussion) => (
-                                <Box className="chat-discussion-list-chat">
+                            {discussions.map((discussion, k) => (
+                                <Box
+                                    className="chat-discussion-list-chat"
+                                    key={k}
+                                >
                                     {gate.level === 0 ? (
                                         <Button
                                             onClick={() => {

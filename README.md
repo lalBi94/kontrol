@@ -4,17 +4,17 @@ Kontrol est une application web auto-hébergeable conçue pour servir de centre 
 
 ## Sommaire 📑
 
--   [Kontrol 📋](#kontrol-)
-    -   [Sommaire 📑](#sommaire-)
-    -   [Fonctionnalités ✨](#fonctionnalités-)
-    -   [Prérequis 🛠️](#prérequis-️)
-    -   [Installation du projet 🏗️](#installation-du-projet-️)
-        -   [De façon permanente (manuel) 🔧](#de-façon-permanente-manuel-)
-        -   [De façon permanente (semi-automatique) ⚙️](#de-façon-permanente-semi-automatique-️)
-    -   [Informations importante](#informations-importante)
-    -   [Contribuer 🤝](#contribuer-)
-    -   [Licence 📜](#licence-)
-    -   [Contact 📧](#contact-)
+- [Kontrol 📋](#kontrol-)
+  - [Sommaire 📑](#sommaire-)
+  - [Fonctionnalités ✨](#fonctionnalités-)
+  - [Prérequis 🛠️](#prérequis-️)
+  - [Installation du projet 🏗️](#installation-du-projet-️)
+    - [De façon permanente (manuel) 🔧](#de-façon-permanente-manuel-)
+    - [De façon permanente (semi-automatique) ⚙️](#de-façon-permanente-semi-automatique-️)
+  - [Informations importante](#informations-importante)
+  - [Contribuer 🤝](#contribuer-)
+  - [Licence 📜](#licence-)
+  - [Contact 📧](#contact-)
 
 ## Fonctionnalités ✨
 

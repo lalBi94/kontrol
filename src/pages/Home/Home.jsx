@@ -305,7 +305,7 @@ export default function Home() {
                         ) : null}
 
                         {Object.keys(wf_list).map((v, k) => (
-                            <Stack className="home-webfav-displayable">
+                            <Stack className="home-webfav-displayable" key={k}>
                                 {inSuppressingWf ? (
                                     <Stack className="home-webfav-displayable-btns">
                                         <Button
