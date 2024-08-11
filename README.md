@@ -1,6 +1,6 @@
 # Kontrol 📋
 
-Kontrol est une application web auto-hébergeable conçue pour servir de centre névralgique pour les familles ou les organisations. Elle regroupe des fonctionnalités essentielles pour garder tout le monde connecté et organisé en un seul endroit. Le projet est entièrement écrit en français.
+Kontrol est une application web auto-hébergeable conçue pour servir de centre névralgique pour les familles ou les organisations. Elle regroupe des fonctionnalités essentielles pour garder tout le monde connecté et organisé en un seul endroit. Le projet est entièrement écrit en français. Un site présentant le projet (docs, etc...) est en cours de dévelopemment.
 
 ## Sommaire 📑
 
