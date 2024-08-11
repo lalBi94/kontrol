@@ -8,6 +8,11 @@ const fs = require("fs/promises");
     try {
         const path_data = path.join(__dirname, "data");
         const path_admin = path.join(path_data, "admin");
+        const path_temp = path.join(__dirname, "temp");
+
+        await fs.access(path_temp).catch(async () => {
+            await fs.mkdir(path_temp, { recursive: true });
+        });
 
         await fs.access(path_data).catch(async () => {
             await fs.mkdir(path_data, { recursive: true });
