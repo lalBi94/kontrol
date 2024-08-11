@@ -1,6 +1,6 @@
 # Kontrol 📋
 
-Kontrol est une application web auto-hébergeable conçue pour servir de centre névralgique pour les familles ou les organisations. Elle regroupe des fonctionnalités essentielles pour garder tout le monde connecté et organisé en un seul endroit. Le projet est entièrement écrit en français. Un site présentant le projet (docs, etc...) est en cours de dévelopemment.
+Kontrol est une application web auto-hébergeable conçue pour centraliser les outils essentiels pour les familles ou les organisations. Ce projet, entièrement écrit en français, vise à simplifier la gestion quotidienne en regroupant toutes les fonctionnalités nécessaires en un seul endroit. Un site dédié à la documentation est en cours de développement.
 
 ## Sommaire 📑
 
@@ -9,8 +9,8 @@ Kontrol est une application web auto-hébergeable conçue pour servir de centre 
   - [Fonctionnalités ✨](#fonctionnalités-)
   - [Prérequis 🛠️](#prérequis-️)
   - [Installation du projet 🏗️](#installation-du-projet-️)
-    - [De façon permanente (manuel) 🔧](#de-façon-permanente-manuel-)
-    - [De façon permanente (semi-automatique) ⚙️](#de-façon-permanente-semi-automatique-️)
+    - [Installation manuelle 🔧](#installation-manuelle-)
+    - [Installation semi-automatique ⚙️](#installation-semi-automatique-️)
   - [Informations importantes](#informations-importantes)
   - [Contribuer 🤝](#contribuer-)
   - [Licence 📜](#licence-)
@@ -18,22 +18,26 @@ Kontrol est une application web auto-hébergeable conçue pour servir de centre 
 
 ## Fonctionnalités ✨
 
--   **Stockage Cloud** ☁️: Stockez et accédez rapidement à vos fichiers.
--   **Calendrier** 📅: Suivez les dates et événements importants. _(pas encore implémenté)_
--   **Notes** 📝: Prenez et organisez des notes pour l'école ou le travail. _(pas encore implémenté)_
--   **Galerie Photo/Vidéo** 📷🎥: Stockez et partagez des photos et des vidéos.
+-   **Stockage Cloud** ☁️: Stockez et accédez facilement à vos fichiers.
+-   **Calendrier** 📅: Suivez les dates et événements importants. _(Pas encore implémenté)_
+-   **Notes** 📝: Prenez et organisez vos notes pour l'école ou le travail. _(Pas encore implémenté)_
+-   **Galerie Photo/Vidéo** 📷🎥: Stockez et partagez vos photos et vidéos.
 -   **Chat** 💬: Communiquez avec les membres de votre domaine, avec support pour les discussions de groupe.
--   **Outils Pratiques** 🛠️: Une liste pré-sélectionnée de sites web utiles choisie par l'administrateur.
+-   **Outils Pratiques** 🛠️: Accédez à une liste pré-sélectionnée de sites web utiles choisis par l'administrateur.
 -   **Site Favoris** ⭐: Enregistrez et organisez vos sites web préférés.
--   **Support** 🆘: Obtenez de l'aide pour toute question ou préoccupation sur l'application. _(plus utile pour les organisations)_
+-   **Support** 🆘: Obtenez de l'aide pour toute question ou préoccupation concernant l'application. _(Particulièrement utile pour les organisations)_
 
 ## Prérequis 🛠️
 
-Assurez-vous d'avoir [Node.js (>= v15)](https://nodejs.org/en/download/package-manager) installé sur votre machine.
+-   Assurez-vous d'avoir [Node.js (>= v15)](https://nodejs.org/en/download/package-manager) installé sur votre machine.
+
+-   Vous aurez besoin d'une application comme `NGINX` pour servir le site sur un serveur. `NGINX` est un serveur web performant qui gère les requêtes HTTP et peut agir comme un proxy inverse.
+
+-   Assurez-vous d'avoir un outil comme `ufw` (Uncomplicated Firewall) pour ouvrir les ports nécessaires et permettre l'accès au serveur. Cela est essentiel pour exposer le port sur lequel votre application sera accessible publiquement.
 
 ## Installation du projet 🏗️
 
-### De façon permanente (manuel) 🔧
+### Installation manuelle 🔧
 
 1. Clonez le dépôt :
 
@@ -47,20 +51,20 @@ Assurez-vous d'avoir [Node.js (>= v15)](https://nodejs.org/en/download/package-m
     cd kontrol
     ```
 
-3. Installez les dépendances du frontend (à la racine) :
+3. Installez les dépendances du frontend :
 
     ```sh
     npm install
     ```
 
-4. Installez les dépendances du backend (dans `api/`) :
+4. Installez les dépendances du backend :
 
     ```sh
     cd api
     npm install
     ```
 
-5. À la racine, construisez le projet :
+5. Construisez le projet :
 
     ```sh
     cd ../
@@ -73,28 +77,25 @@ Assurez-vous d'avoir [Node.js (>= v15)](https://nodejs.org/en/download/package-m
     mv dist api
     ```
 
-7. Si vous prévoyez de faire des modifications, pensez à re-construire le projet !
-
-8. Installez pm2 afin d'exécuter le code en arrière-plan sur votre serveur :
+7. Installez `pm2` pour exécuter le code en arrière-plan sur votre serveur :
 
     ```sh
     npm install -g pm2
-    # Redémarrez le terminal si nécessaire
     pm2 -v
     ```
 
-9. Démarrez le serveur :
+8. Démarrez le serveur :
 
     ```sh
     pm2 start api/main.js --name "kontrol-app" --watch --max-memory-restart 300M --instances 2 --env production
     ```
 
-    - `max-memory-restart` : Pour éviter les fuites de mémoire.
-    - `instances` : Pour mieux gérer le partage de requêtes (alléger la charge d'un processus).
+    - `--max-memory-restart` : Pour éviter les fuites de mémoire.
+    - `--instances` : Pour améliorer la gestion des requêtes et alléger la charge d'un processus.
 
-10. Exposez votre port à l'aide de `ufw` et installez NGINX sur votre machine (et configurez-le).
+9. Exposez le port avec `ufw` et installez NGINX sur votre machine (et configurez-le).
 
-### De façon permanente (semi-automatique) ⚙️
+### Installation semi-automatique ⚙️
 
 1. Clonez le dépôt :
 
@@ -114,16 +115,18 @@ Assurez-vous d'avoir [Node.js (>= v15)](https://nodejs.org/en/download/package-m
     sh self_host.sh
     ```
 
-4. Exposez votre port à l'aide de `ufw` et installez `NGINX` sur votre machine (et configurez-le).
+4. Exposez le port avec `ufw` et installez NGINX sur votre machine (et configurez-le).
 
 ## Informations importantes
 
-Vous devez configurer les variables d'environnement se trouvant `.env` et `api/.env` partir des `.env.example`.
-Ils ne sont pas présent au clonage du répo mais dans le processus d'initialisation du serveur, un fichier `api/.db` devrait apparaitre ainsi qu'un dossier `api/data/admin`. Le mot de passe pour accéder au compte administrateur est `kontrol-admin`. Un dossier `api/temp` est aussi créer.
+-   Vous devez configurer les variables d'environnement dans les fichiers `.env` et `api/.env` à partir des fichiers `.env.example`.
+-   Les fichiers `.env` et `api/.env` ne sont pas présents lors du clonage du dépôt mais seront générés lors de l'initialisation du serveur.
+-   Un fichier `api/.db` et un dossier `api/data/admin` seront créés. Le mot de passe pour accéder au compte administrateur est `kontrol-admin`.
+-   Un dossier `api/temp` sera également créé.
 
 ## Contribuer 🤝
 
-Les contributions sont les bienvenues ! Veuillez forker le dépôt et soumettre une pull request avec un nom de branche explicite pour toute amélioration ou correction de bug. Si vous avez modifier un fichier, libre a vous de le co-signer avec votre nom / pseudo.
+Les contributions sont les bienvenues ! Forkez le dépôt et soumettez une pull request avec un nom de branche explicite pour toute amélioration ou correction de bug. Si vous avez modifié un fichier, vous pouvez le co-signer avec votre nom ou pseudo.
 
 ## Licence 📜
 
@@ -131,7 +134,7 @@ Ce projet est sous licence MIT - voir le fichier [LICENSE](LICENSE) pour plus de
 
 ## Contact 📧
 
-Pour toute question ou support, veuillez me contacter à l'adresse mail [pro.boudjemline@gmail.com](mailto:pro.boudjemline@gmail.com).
+Pour toute question ou support, veuillez me contacter à l'adresse [pro.boudjemline@gmail.com](mailto:pro.boudjemline@gmail.com).
 
 ---
 
