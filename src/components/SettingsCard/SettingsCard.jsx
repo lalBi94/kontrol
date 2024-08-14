@@ -1,4 +1,4 @@
-import { Stack, Typography, Divider } from "@mui/joy";
+import { Stack, Typography, Divider, Link } from "@mui/joy";
 import "./SettingsCard.scss";
 
 export default function SettingsCard({ title, handler, content, logo }) {

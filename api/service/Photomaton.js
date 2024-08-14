@@ -527,16 +527,43 @@ class Photomaton {
                 album
             );
 
+            const supportedImageExtensions = [
+                ".jpg",
+                ".jpeg",
+                ".png",
+                ".webp",
+                ".avif",
+                ".gif",
+                ".svg",
+                ".tiff",
+            ];
+
+            const supportedImageExtensionsLower = supportedImageExtensions.map(
+                (ext) => ext.toLowerCase()
+            );
+
             for (let file of files) {
-                const optimizedPath = await this.optimizeImage(file.path);
-                const final_path = path.join(path_to_target, file.originalname);
-                try {
-                    await fs.rename(optimizedPath, final_path);
-                } catch (err) {
-                    console.error(
-                        `Erreur lors du déplacement du fichier ${file.path} vers ${final_path}:`,
-                        err
+                const fileExtension = path.extname(file.path).toLowerCase();
+
+                if (supportedImageExtensionsLower.includes(fileExtension)) {
+                    const optimizedPath = await this.optimizeImage(file.path);
+
+                    const final_path = path.join(
+                        path_to_target,
+                        file.originalname
                     );
+
+                    console.log(final_path);
+
+                    await fs.rename(optimizedPath, final_path);
+                } else {
+                    const final_path = path.join(
+                        path_to_target,
+                        file.originalname
+                    );
+
+                    console.log(file);
+                    await fs.rename(file.path, final_path);
                 }
             }
 

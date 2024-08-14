@@ -34,11 +34,9 @@ const router = createBrowserRouter([
 console.log(import.meta.env);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-    <React.StrictMode>
-        <GateProvider>
-            <ChatInstanceProvider>
-                <RouterProvider router={router} />
-            </ChatInstanceProvider>
-        </GateProvider>
-    </React.StrictMode>
+    <GateProvider>
+        <ChatInstanceProvider>
+            <RouterProvider router={router} />
+        </ChatInstanceProvider>
+    </GateProvider>
 );

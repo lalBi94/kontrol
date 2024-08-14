@@ -1,16 +1,19 @@
 @font-face {
     font-family: "LondrinaSolid-Regular";
     src: url("./assets/fonts/LondrinaSolid-Regular.ttf") format("truetype");
+    font-display: swap;
 }
 
 @font-face {
     font-family: "ShantellSans-Regular";
     src: url("./assets/fonts/ShantellSans-Regular.ttf") format("truetype");
+    font-display: swap;
 }
 
 @font-face {
     font-family: "Poppins-MediumItalic";
     src: url("./assets/fonts/Poppins-MediumItalic.ttf") format("truetype");
+    font-display: swap;
 }
 
 $gen_resp: 1000px;
@@ -27,6 +30,7 @@ body {
     margin: 0;
     box-sizing: border-box;
     background: $black;
+    font-family: Arial, sans-serif;
 
     @media (max-width: $gen_resp) {
         padding: 5px;

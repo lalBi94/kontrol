@@ -4,17 +4,17 @@ Kontrol est une application web auto-hébergeable conçue pour centraliser les o
 
 ## Sommaire 📑
 
-- [Kontrol 📋](#kontrol-)
-  - [Sommaire 📑](#sommaire-)
-  - [Fonctionnalités ✨](#fonctionnalités-)
-  - [Prérequis 🛠️](#prérequis-️)
-  - [Installation du projet 🏗️](#installation-du-projet-️)
-    - [Installation manuelle 🔧](#installation-manuelle-)
-    - [Installation semi-automatique ⚙️](#installation-semi-automatique-️)
-  - [Informations importantes](#informations-importantes)
-  - [Contribuer 🤝](#contribuer-)
-  - [Licence 📜](#licence-)
-  - [Contact 📧](#contact-)
+-   [Kontrol 📋](#kontrol-)
+    -   [Sommaire 📑](#sommaire-)
+    -   [Fonctionnalités ✨](#fonctionnalités-)
+    -   [Prérequis 🛠️](#prérequis-️)
+    -   [Installation du projet 🏗️](#installation-du-projet-️)
+        -   [Installation manuelle 🔧](#installation-manuelle-)
+        -   [Installation semi-automatique ⚙️](#installation-semi-automatique-️)
+    -   [Informations importantes](#informations-importantes)
+    -   [Contribuer 🤝](#contribuer-)
+    -   [Licence 📜](#licence-)
+    -   [Contact 📧](#contact-)
 
 ## Fonctionnalités ✨
 
@@ -54,14 +54,14 @@ Kontrol est une application web auto-hébergeable conçue pour centraliser les o
 3. Installez les dépendances du frontend :
 
     ```sh
-    npm install
+    pnpm install
     ```
 
 4. Installez les dépendances du backend :
 
     ```sh
     cd api
-    npm install
+    pnpm install
     ```
 
 5. Construisez le projet :
@@ -80,7 +80,7 @@ Kontrol est une application web auto-hébergeable conçue pour centraliser les o
 7. Installez `pm2` pour exécuter le code en arrière-plan sur votre serveur :
 
     ```sh
-    npm install -g pm2
+    pnpm install -g pm2
     pm2 -v
     ```
 
