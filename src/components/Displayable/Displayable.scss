@@ -15,7 +15,9 @@
     .displayable-links {
         color: $white;
         padding: 5px;
-        text-decoration: none;
+
+        .txt {
+        }
     }
 
     .displayable-links-special {

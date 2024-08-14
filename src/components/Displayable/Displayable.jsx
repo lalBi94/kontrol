@@ -57,9 +57,9 @@ export default function Displayable({
                         img ? "displayable-links-special" : "displayable-links"
                     }`}
                 >
-                    <nobr className={img ? "" : "londrina-solid-regular"}>
+                    <spans className={img ? "" : "londrina-solid-regular txt"}>
                         {text}
-                    </nobr>
+                    </spans>
                 </Typography>
             </Stack>
         </Tooltip>

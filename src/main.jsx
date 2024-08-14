@@ -8,6 +8,9 @@ import Storage from "./pages/Storage/Storage";
 import { ChatInstanceProvider } from "./context/ChatInstance/ChatInstance";
 import Galery from "./pages/Galery/Galery";
 import Chat from "./pages/Chat/Chat";
+import DomainGestion from "./pages/DomainGestion/DomainGestion";
+import Notes from "./pages/Notes/Notes";
+
 const router = createBrowserRouter([
     { path: "*", element: <Home /> },
     { path: "/home", element: <Home /> },
@@ -23,6 +26,9 @@ const router = createBrowserRouter([
 
     { path: "/chat", element: <Chat /> },
     { path: "/messagerie", element: <Chat /> },
+
+    { path: "/kptureadmin", element: <DomainGestion /> },
+    { path: "/notes", element: <Notes /> },
 ]);
 
 console.log(import.meta.env);

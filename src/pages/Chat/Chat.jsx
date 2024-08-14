@@ -93,8 +93,8 @@ export default function Chat() {
         socket.emit("kpture.getMessages", discussion);
     };
 
-    const deleteDiscussion = (discussionId) => {
-        socket.emit("kpture.deleteDiscussion", discussionId);
+    const deleteDiscussion = (discussionId, discussionName) => {
+        socket.emit("kpture.deleteDiscussion", discussionId, discussionName);
     };
 
     useEffect(() => {
@@ -112,13 +112,23 @@ export default function Chat() {
                 getMessagesOf(last_discussion);
             }
 
-            socket.on("kpture.deletingDiscussion", (discussionId) => {
-                const newDiscussions = discussions.filter(
-                    (d) => d.id !== discussionId
-                );
+            socket.on(
+                "kpture.deletingDiscussion",
+                (discussionId, discussionName) => {
+                    if (
+                        localStorage.getItem("kpture.currentDiscussion") ===
+                        discussionName
+                    ) {
+                        localStorage.removeItem("kpture.currentDiscussion");
+                    }
 
-                setDiscussions(newDiscussions);
-            });
+                    const newDiscussions = discussions.filter(
+                        (d) => d.id !== discussionId
+                    );
+
+                    setDiscussions(newDiscussions);
+                }
+            );
 
             socket.emit("kpture.sendPresence", gate.user);
 
@@ -290,7 +300,10 @@ export default function Chat() {
                                     {gate.level === 0 ? (
                                         <Button
                                             onClick={() => {
-                                                deleteDiscussion(discussion.id);
+                                                deleteDiscussion(
+                                                    discussion.id,
+                                                    discussion.name
+                                                );
                                             }}
                                             color="danger"
                                             className="chat-discussion-list-del"

@@ -63,6 +63,9 @@ app.use("/pandora", pandora);
 const webfav = require("./routes/WebfavRoutes");
 app.use("/webfav", webfav);
 
+const nwrite = require("./routes/NWriteRoutes");
+app.use("/nwrite", nwrite);
+
 app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, "dist", "index.html"));
 });

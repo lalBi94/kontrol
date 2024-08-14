@@ -256,6 +256,7 @@ export default function Home() {
                             link={"/notes"}
                             text={"NOTES"}
                             tooltip="Notes"
+                            openInAnotherWindow={false}
                         />
 
                         <Displayable
@@ -263,6 +264,7 @@ export default function Home() {
                             link={"/calendar"}
                             text={"CALENDRIER"}
                             tooltip="Calendrier"
+                            openInAnotherWindow={false}
                         />
                     </Stack>
                 </Stack>

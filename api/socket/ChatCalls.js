@@ -13,8 +13,12 @@ module.exports = (io) => {
             });
         });
 
-        socket.on("kpture.deleteDiscussion", (discussionId) => {
-            console.log("Suppression de la discussion ID:", discussionId);
+        socket.on("kpture.deleteDiscussion", (discussionId, discussionName) => {
+            console.log(
+                "Suppression de la discussion ID:",
+                discussionId,
+                discussionName
+            );
 
             if (discussionId) {
                 dbMessage.deleteDiscussion(discussionId, (err) => {
@@ -24,7 +28,11 @@ module.exports = (io) => {
                             err
                         );
                     } else {
-                        io.emit("kpture.deletingDiscussion", discussionId);
+                        io.emit(
+                            "kpture.deletingDiscussion",
+                            discussionId,
+                            discussionName
+                        );
 
                         console.log(
                             "Discussion ID",

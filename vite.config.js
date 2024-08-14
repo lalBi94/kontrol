@@ -18,6 +18,11 @@ export default defineConfig({
                 changeOrigin: true,
                 secure: false,
             },
+            "/nwrite": {
+                target: process.env.VITE_API_IP,
+                changeOrigin: true,
+                secure: false,
+            },
             "/pandora": {
                 target: process.env.VITE_API_IP,
                 changeOrigin: true,
