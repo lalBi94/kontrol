@@ -37,3 +37,4 @@ dist-ssr
 
 # accounts 
 api/data/*/
+api/temp/*/
