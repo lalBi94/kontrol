@@ -130,6 +130,8 @@ Kontrol est une application web auto-hébergeable conçue pour centraliser les o
 
 Les contributions sont les bienvenues ! Forkez le dépôt et soumettez une pull request avec un nom de branche explicite pour toute amélioration ou correction de bug. Si vous avez modifié un fichier, vous pouvez le co-signer avec votre nom ou pseudo.
 
+En tant que contributeur principal, je m'assure de contrôler les commits avant leur intégration. Je prendrai également l'initiative de pusher directement du code sur la branche principale lorsque cela sera nécessaire. Merci pour votre compréhension et votre soutien !
+
 ## Licence 📜
 
 Ce projet est sous licence MIT - voir le fichier [LICENSE](LICENSE) pour plus de détails.
