@@ -40,12 +40,14 @@ export default function Notes() {
     const [notesList, setNotesList] = useState([]);
 
     const handleDeleteNote = (title) => {
-        deleteNote(gate.user, title).then((res) => {
-            if (!res.error) {
-                handleNewNote();
-                getNotes();
+        deleteNote(gate.user, title, localStorage.getItem("kpture.token")).then(
+            (res) => {
+                if (!res.error) {
+                    handleNewNote();
+                    getNotes();
+                }
             }
-        });
+        );
     };
 
     const handleNewNote = () => {
@@ -57,7 +59,11 @@ export default function Notes() {
     };
 
     const handleSelectNote = (title) => {
-        getNoteData(gate.user, title).then((res) => {
+        getNoteData(
+            gate.user,
+            title,
+            localStorage.getItem("kpture.token")
+        ).then((res) => {
             const parts = res.content.title.split("-");
 
             setCurrentTitleNote(parts[0]);
@@ -76,7 +82,8 @@ export default function Notes() {
             currentTitleNote,
             value,
             gate.user,
-            JSON.stringify(keywords)
+            JSON.stringify(keywords),
+            localStorage.getItem("kpture.token")
         ).then((res) => {
             getNotes();
             handleSelectNote(res.title);
@@ -112,36 +119,38 @@ export default function Notes() {
     };
 
     const getNotes = () => {
-        getAllNotesOf(gate.user).then((res) => {
-            if (!res.error) {
-                const feedSecondMind = res.title_list.map((fileName) => {
-                    const parts = fileName.split("-");
-                    const title = parts[0];
-                    const timestamp = parseInt(parts[1], 10);
-                    const keywords = parts.slice(2, parts.length);
-
-                    console.log(keywords);
-
-                    return { title, timestamp, keywords: keywords };
-                });
-
-                setDataForSecondMind(prepareDataForGraph(feedSecondMind));
-
-                console.log(prepareDataForGraph(feedSecondMind));
-
-                const notesArray = res.title_list
-                    .map((fileName) => {
+        getAllNotesOf(gate.user, localStorage.getItem("kpture.token")).then(
+            (res) => {
+                if (!res.error) {
+                    const feedSecondMind = res.title_list.map((fileName) => {
                         const parts = fileName.split("-");
                         const title = parts[0];
                         const timestamp = parseInt(parts[1], 10);
+                        const keywords = parts.slice(2, parts.length);
 
-                        return { title, timestamp };
-                    })
-                    .sort((a, b) => b.timestamp - a.timestamp);
+                        console.log(keywords);
 
-                setNotesList(notesArray);
+                        return { title, timestamp, keywords: keywords };
+                    });
+
+                    setDataForSecondMind(prepareDataForGraph(feedSecondMind));
+
+                    console.log(prepareDataForGraph(feedSecondMind));
+
+                    const notesArray = res.title_list
+                        .map((fileName) => {
+                            const parts = fileName.split("-");
+                            const title = parts[0];
+                            const timestamp = parseInt(parts[1], 10);
+
+                            return { title, timestamp };
+                        })
+                        .sort((a, b) => b.timestamp - a.timestamp);
+
+                    setNotesList(notesArray);
+                }
             }
-        });
+        );
     };
 
     const handleUpKeyword = (e) => {
@@ -156,7 +165,13 @@ export default function Notes() {
             .filter((e) => e.length > 0)
             .join("-")}`;
 
-        updateNote(filename, value, gate.user, newName).then((res) => {
+        updateNote(
+            filename,
+            value,
+            gate.user,
+            newName,
+            localStorage.getItem("kpture.token")
+        ).then((res) => {
             if (!res.error) {
                 console.log(newName);
                 handleSelectNote(newName);
@@ -293,7 +308,7 @@ export default function Notes() {
                             <Typography style={{ color: "white" }} level="h4">
                                 Nom de la note{" "}
                                 {!isNoteSelected
-                                    ? `({currentTitleNote.length} sur 30
+                                    ? `(${currentTitleNote.length} sur 30
                                 caractères)`
                                     : ``}
                             </Typography>

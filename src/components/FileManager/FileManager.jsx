@@ -76,7 +76,12 @@ export default function FileManager({ targetDir = "" }) {
 
         setFilesLoading(true);
 
-        renameSomething(gate.user, pth, newName).then((res) => {
+        renameSomething(
+            gate.user,
+            pth,
+            newName,
+            localStorage.getItem("kpture.token")
+        ).then((res) => {
             if (res.error) {
                 openNotification(
                     "Erreur",
@@ -106,40 +111,46 @@ export default function FileManager({ targetDir = "" }) {
             "bottomRight"
         );
 
-        retreiveZip(gate.user, pth).then((res) => {
-            let fileName = res.contentDisposition
-                ? res.contentDisposition
-                      .split("filename=")[1]
-                      .split(";")[0]
-                      .replace(/"/g, "")
-                : "downloaded-file.zip";
+        retreiveZip(gate.user, pth, localStorage.getItem("kpture.token")).then(
+            (res) => {
+                let fileName = res.contentDisposition
+                    ? res.contentDisposition
+                          .split("filename=")[1]
+                          .split(";")[0]
+                          .replace(/"/g, "")
+                    : "downloaded-file.zip";
 
-            const url = window.URL.createObjectURL(new Blob([res.blob]));
-            const a = document.createElement("a");
-            a.href = url;
-            a.download = fileName;
-            document.body.appendChild(a);
-            a.click();
-            a.remove();
-            window.URL.revokeObjectURL(url);
+                const url = window.URL.createObjectURL(new Blob([res.blob]));
+                const a = document.createElement("a");
+                a.href = url;
+                a.download = fileName;
+                document.body.appendChild(a);
+                a.click();
+                a.remove();
+                window.URL.revokeObjectURL(url);
 
-            openNotification(
-                "Success",
-                "Votre téléchargement a démarré avec succès et le dossier est en cours de téléchargement dans votre navigateur.",
-                true,
-                true,
-                false,
-                "top"
-            );
+                openNotification(
+                    "Success",
+                    "Votre téléchargement a démarré avec succès et le dossier est en cours de téléchargement dans votre navigateur.",
+                    true,
+                    true,
+                    false,
+                    "top"
+                );
 
-            setFilesLoading(false);
-        });
+                setFilesLoading(false);
+            }
+        );
     };
 
     const handleDeleteSomething = (pth) => {
         setFilesLoading(true);
 
-        deleteSomething(gate.user, pth).then((res) => {
+        deleteSomething(
+            gate.user,
+            pth,
+            localStorage.getItem("kpture.token")
+        ).then((res) => {
             setFilesLoading(false);
             move(pathDir);
         });
@@ -148,28 +159,30 @@ export default function FileManager({ targetDir = "" }) {
     const onFileDownload = (pth) => {
         setFilesLoading(true);
 
-        retreiveFile(gate.user, pth).then((res) => {
-            let fileName = "downloadedFile";
+        retreiveFile(gate.user, pth, localStorage.getItem("kpture.token")).then(
+            (res) => {
+                let fileName = "downloadedFile";
 
-            if (res.contentDisposition) {
-                const fileNameMatch =
-                    res.contentDisposition.match(/filename="(.+)"/);
-                if (fileNameMatch.length === 2) {
-                    fileName = fileNameMatch[1];
+                if (res.contentDisposition) {
+                    const fileNameMatch =
+                        res.contentDisposition.match(/filename="(.+)"/);
+                    if (fileNameMatch.length === 2) {
+                        fileName = fileNameMatch[1];
+                    }
                 }
+
+                const url = window.URL.createObjectURL(new Blob([res.blob]));
+                const a = document.createElement("a");
+                a.href = url;
+                a.download = fileName;
+                document.body.appendChild(a);
+                a.click();
+                a.remove();
+                window.URL.revokeObjectURL(url);
+
+                setFilesLoading(false);
             }
-
-            const url = window.URL.createObjectURL(new Blob([res.blob]));
-            const a = document.createElement("a");
-            a.href = url;
-            a.download = fileName;
-            document.body.appendChild(a);
-            a.click();
-            a.remove();
-            window.URL.revokeObjectURL(url);
-
-            setFilesLoading(false);
-        });
+        );
     };
 
     const onBtnFileClick = () => {
@@ -246,7 +259,12 @@ export default function FileManager({ targetDir = "" }) {
             "bottomRight"
         );
 
-        sendFileToStorage(gate.user, files, pathDir).then((res) => {
+        sendFileToStorage(
+            gate.user,
+            files,
+            pathDir,
+            localStorage.getItem("kpture.token")
+        ).then((res) => {
             if (!res.error) {
                 openNotification(
                     "Succès",
@@ -307,7 +325,11 @@ export default function FileManager({ targetDir = "" }) {
     const move = (targetedDir) => {
         setFilesLoading(true);
 
-        navigation(gate.user, targetedDir).then((res) => {
+        navigation(
+            gate.user,
+            targetedDir,
+            localStorage.getItem("kpture.token")
+        ).then((res) => {
             setPathDir(targetedDir);
 
             if (res.storage.length === 0) {
@@ -326,7 +348,12 @@ export default function FileManager({ targetDir = "" }) {
         if (nameDir || nameDir.length > 0) {
             setFilesLoading(true);
 
-            createDir(gate.user, nameDir, pathDir).then((res) => {
+            createDir(
+                gate.user,
+                nameDir,
+                pathDir,
+                localStorage.getItem("kpture.token")
+            ).then((res) => {
                 move(pathDir);
                 setFilesLoading(false);
             });

@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const getAlbums = async (user) => {
+export const getAlbums = async (user, token) => {
     try {
         const formData = new FormData();
         formData.append("user", user);
@@ -8,6 +8,7 @@ export const getAlbums = async (user) => {
         const query = await axios.post("/photomaton/getAlbums", formData, {
             headers: {
                 "Content-Type": "multipart/form-data",
+                Authorization: `Bearer ${token}`,
             },
         });
 
@@ -17,7 +18,7 @@ export const getAlbums = async (user) => {
     }
 };
 
-export const deleteAlbum = async (user, album) => {
+export const deleteAlbum = async (user, album, token) => {
     try {
         const formData = new FormData();
         formData.append("user", user);
@@ -26,6 +27,7 @@ export const deleteAlbum = async (user, album) => {
         const query = await axios.put("/photomaton/deleteAlbum", formData, {
             headers: {
                 "Content-Type": "multipart/form-data",
+                Authorization: `Bearer ${token}`,
             },
         });
 
@@ -35,7 +37,7 @@ export const deleteAlbum = async (user, album) => {
     }
 };
 
-export const massiveDelete = async (user, supress, album) => {
+export const massiveDelete = async (user, supress, album, token) => {
     try {
         const formData = new FormData();
         formData.append("user", user);
@@ -45,6 +47,7 @@ export const massiveDelete = async (user, supress, album) => {
         const query = await axios.put("/photomaton/massiveDelete", formData, {
             headers: {
                 "Content-Type": "multipart/form-data",
+                Authorization: `Bearer ${token}`,
             },
         });
 
@@ -54,7 +57,7 @@ export const massiveDelete = async (user, supress, album) => {
     }
 };
 
-export const sendFileToGalery = async (user, files, album) => {
+export const sendFileToGalery = async (user, files, album, token) => {
     try {
         const formData = new FormData();
         formData.append("user", user);
@@ -70,6 +73,7 @@ export const sendFileToGalery = async (user, files, album) => {
             {
                 headers: {
                     "Content-Type": "multipart/form-data",
+                    Authorization: `Bearer ${token}`,
                 },
             }
         );
@@ -80,7 +84,7 @@ export const sendFileToGalery = async (user, files, album) => {
     }
 };
 
-export const retreiveZip = async (user, album) => {
+export const retreiveZip = async (user, album, token) => {
     try {
         const formData = new FormData();
         formData.append("user", user);
@@ -89,6 +93,7 @@ export const retreiveZip = async (user, album) => {
         const query = await axios.post("/photomaton/retreiveZip", formData, {
             headers: {
                 "Content-Type": "multipart/form-data",
+                Authorization: `Bearer ${token}`,
             },
             responseType: "blob",
         });
@@ -104,7 +109,7 @@ export const retreiveZip = async (user, album) => {
     }
 };
 
-export const getFile = async (user, album, file) => {
+export const getFile = async (user, album, file, token) => {
     try {
         const formData = new FormData();
         formData.append("user", user);
@@ -114,6 +119,7 @@ export const getFile = async (user, album, file) => {
         const query = await axios.post("/photomaton/getFile", formData, {
             headers: {
                 "Content-Type": "multipart/form-data",
+                Authorization: `Bearer ${token}`,
             },
         });
 
@@ -123,7 +129,7 @@ export const getFile = async (user, album, file) => {
     }
 };
 
-export const getFilesOf = async (user, album, page) => {
+export const getFilesOf = async (user, album, page, token) => {
     try {
         const formData = new FormData();
         formData.append("user", user);
@@ -133,6 +139,7 @@ export const getFilesOf = async (user, album, page) => {
         const query = await axios.post("/photomaton/getFilesOf", formData, {
             headers: {
                 "Content-Type": "multipart/form-data",
+                Authorization: `Bearer ${token}`,
             },
         });
 
@@ -142,7 +149,7 @@ export const getFilesOf = async (user, album, page) => {
     }
 };
 
-export const getTotalFilesCount = async (user, album) => {
+export const getTotalFilesCount = async (user, album, token) => {
     try {
         const formData = new FormData();
         formData.append("user", user);
@@ -154,6 +161,7 @@ export const getTotalFilesCount = async (user, album) => {
             {
                 headers: {
                     "Content-Type": "multipart/form-data",
+                    Authorization: `Bearer ${token}`,
                 },
             }
         );
@@ -164,7 +172,7 @@ export const getTotalFilesCount = async (user, album) => {
     }
 };
 
-export const createAlbum = async (user, name) => {
+export const createAlbum = async (user, name, token) => {
     try {
         const formData = new FormData();
         formData.append("user", user);
@@ -173,6 +181,7 @@ export const createAlbum = async (user, name) => {
         const query = await axios.post("/photomaton/createAlbum", formData, {
             headers: {
                 "Content-Type": "multipart/form-data",
+                Authorization: `Bearer ${token}`,
             },
         });
 

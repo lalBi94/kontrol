@@ -1,8 +1,12 @@
 import axios from "axios";
 
-export const retreiveWebsiteFav = async (user) => {
+export const retreiveWebsiteFav = async (user, token) => {
     try {
-        const query = await axios.get(`/webfav/retreiveWebsiteFav/${user}`);
+        const query = await axios.get(`/webfav/retreiveWebsiteFav/${user}`, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
         return query.data;
     } catch (err) {
         console.error(
@@ -12,7 +16,7 @@ export const retreiveWebsiteFav = async (user) => {
     }
 };
 
-export const deleteWebsiteFav = async (user, url) => {
+export const deleteWebsiteFav = async (user, url, token) => {
     try {
         const formData = new FormData();
         formData.append("user", user);
@@ -21,6 +25,7 @@ export const deleteWebsiteFav = async (user, url) => {
         const query = await axios.post(`/webfav/deleteWebsiteFav/`, formData, {
             headers: {
                 "Content-Type": "multipart/form-data",
+                Authorization: `Bearer ${token}`,
             },
         });
 
@@ -30,7 +35,7 @@ export const deleteWebsiteFav = async (user, url) => {
     }
 };
 
-export const addWebsiteFavorite = async (user, url, name, image_url) => {
+export const addWebsiteFavorite = async (user, url, name, image_url, token) => {
     try {
         const formData = new FormData();
         formData.append("user", user);
@@ -41,6 +46,7 @@ export const addWebsiteFavorite = async (user, url, name, image_url) => {
         const query = await axios.post("/webfav/addWebsiteFav/", formData, {
             headers: {
                 "Content-Type": "multipart/form-data",
+                Authorization: `Bearer ${token}`,
             },
         });
 

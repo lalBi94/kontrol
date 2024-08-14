@@ -13,9 +13,11 @@ import RadioGroup from "@mui/joy/RadioGroup";
 export default function Storage() {
     const gate = useGate();
     const [isVisibleData, setIsVisibleData] = useState(false);
+    const [token, setToken] = useState("");
 
     const handleClickMoreDetails = () => {
         setIsVisibleData(!isVisibleData);
+        setToken(localStorage.getItem("kpture.token"));
     };
 
     useEffect(() => {}, [gate]);
@@ -38,6 +40,7 @@ export default function Storage() {
                         <StorageDetailsBadge
                             user={gate.user}
                             level={gate.level}
+                            token={token}
                         />
                         <Olympe />
                     </Stack>

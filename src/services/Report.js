@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const sendReport = async (message, from, contact, nature) => {
+export const sendReport = async (message, from, contact, nature, token) => {
     const formData = new FormData();
     formData.append("message", message);
     formData.append("from", from);
@@ -10,6 +10,7 @@ export const sendReport = async (message, from, contact, nature) => {
     const query = await axios.post("/report/send", formData, {
         headers: {
             "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${token}`,
         },
     });
 

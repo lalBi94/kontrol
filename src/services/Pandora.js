@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const feedOlympus = async (user) => {
+export const feedOlympus = async (user, token) => {
     try {
         const formData = new FormData();
         formData.append("user", user);
@@ -8,6 +8,7 @@ export const feedOlympus = async (user) => {
         const query = await axios.post("/pandora/feedOlympus", formData, {
             headers: {
                 "Content-Type": "multipart/form-data",
+                Authorization: `Bearer ${token}`,
             },
         });
 
@@ -17,7 +18,7 @@ export const feedOlympus = async (user) => {
     }
 };
 
-export const renameSomething = async (user, pth, newName) => {
+export const renameSomething = async (user, pth, newName, token) => {
     try {
         const formData = new FormData();
         formData.append("pth", pth);
@@ -27,6 +28,7 @@ export const renameSomething = async (user, pth, newName) => {
         const query = await axios.put("/pandora/renameSomething", formData, {
             headers: {
                 "Content-Type": "multipart/form-data",
+                Authorization: `Bearer ${token}`,
             },
         });
 
@@ -36,7 +38,7 @@ export const renameSomething = async (user, pth, newName) => {
     }
 };
 
-export const getStorageDetails = async (level, user) => {
+export const getStorageDetails = async (level, user, token) => {
     try {
         const formData = new FormData();
         formData.append("level", level);
@@ -45,6 +47,7 @@ export const getStorageDetails = async (level, user) => {
         const query = await axios.post("/pandora/getStorageDetails", formData, {
             headers: {
                 "Content-Type": "multipart/form-data",
+                Authorization: `Bearer ${token}`,
             },
         });
 
@@ -54,7 +57,7 @@ export const getStorageDetails = async (level, user) => {
     }
 };
 
-export const deleteSomething = async (user, pth) => {
+export const deleteSomething = async (user, pth, token) => {
     try {
         const formData = new FormData();
         formData.append("user", user);
@@ -63,6 +66,7 @@ export const deleteSomething = async (user, pth) => {
         const query = await axios.put("/pandora/deleteSomething", formData, {
             headers: {
                 "Content-Type": "multipart/form-data",
+                Authorization: `Bearer ${token}`,
             },
         });
 
@@ -72,7 +76,7 @@ export const deleteSomething = async (user, pth) => {
     }
 };
 
-export const retreiveZip = async (user, pth) => {
+export const retreiveZip = async (user, pth, token) => {
     try {
         const formData = new FormData();
         formData.append("user", user);
@@ -81,6 +85,7 @@ export const retreiveZip = async (user, pth) => {
         const query = await axios.post("/pandora/retreiveZip", formData, {
             headers: {
                 "Content-Type": "multipart/form-data",
+                Authorization: `Bearer ${token}`,
             },
             responseType: "blob",
         });
@@ -96,7 +101,7 @@ export const retreiveZip = async (user, pth) => {
     }
 };
 
-export const retreiveFile = async (user, pth) => {
+export const retreiveFile = async (user, pth, token) => {
     try {
         const formData = new FormData();
         formData.append("user", user);
@@ -105,6 +110,7 @@ export const retreiveFile = async (user, pth) => {
         const query = await axios.post("/pandora/retreiveFile", formData, {
             headers: {
                 "Content-Type": "multipart/form-data",
+                Authorization: `Bearer ${token}`,
             },
             responseType: "blob",
         });
@@ -120,7 +126,7 @@ export const retreiveFile = async (user, pth) => {
     }
 };
 
-export const createDir = async (user, dirName, pth) => {
+export const createDir = async (user, dirName, pth, token) => {
     try {
         const formData = new FormData();
         formData.append("user", user);
@@ -130,6 +136,7 @@ export const createDir = async (user, dirName, pth) => {
         const query = await axios.post("/pandora/createDir", formData, {
             headers: {
                 "Content-Type": "multipart/form-data",
+                Authorization: `Bearer ${token}`,
             },
         });
 
@@ -139,7 +146,7 @@ export const createDir = async (user, dirName, pth) => {
     }
 };
 
-export const sendFileToStorage = async (user, files, pth) => {
+export const sendFileToStorage = async (user, files, pth, token) => {
     try {
         const formData = new FormData();
         formData.append("user", user);
@@ -152,6 +159,7 @@ export const sendFileToStorage = async (user, files, pth) => {
         const query = await axios.post("/pandora/sendFileToStorage", formData, {
             headers: {
                 "Content-Type": "multipart/form-data",
+                Authorization: `Bearer ${token}`,
             },
         });
 
@@ -161,7 +169,7 @@ export const sendFileToStorage = async (user, files, pth) => {
     }
 };
 
-export const navigation = async (user, targetDir) => {
+export const navigation = async (user, targetDir, token) => {
     try {
         const formData = new FormData();
         formData.append("user", user);
@@ -170,6 +178,7 @@ export const navigation = async (user, targetDir) => {
         const query = await axios.post(`/pandora/navigation`, formData, {
             headers: {
                 "Content-Type": "multipart/form-data",
+                Authorization: `Bearer ${token}`,
             },
         });
 

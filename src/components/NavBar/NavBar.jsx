@@ -116,7 +116,13 @@ export default function NavBar() {
     const sendMessage = (e) => {
         e.preventDefault();
 
-        sendReport(message, gate.user, contact, nature).then((res) => {
+        sendReport(
+            message,
+            gate.user,
+            contact,
+            nature,
+            localStorage.getItem("kpture.token")
+        ).then((res) => {
             if (res.error) {
                 openNotification(
                     "Problème",

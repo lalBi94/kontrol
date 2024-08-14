@@ -57,10 +57,10 @@ class Users {
      * @param {object} user Les informations de l'utilisateur
      * @return {Promise<{error: string | null, token: string | null}>}
      */
-    async genToken(user) {
+    async genToken(user, time) {
         try {
             const token = jwt.sign(user, process.env.JWT, {
-                expiresIn: "24h",
+                expiresIn: time,
             });
             return { error: null, token };
         } catch (err) {
@@ -100,15 +100,16 @@ class Users {
             );
 
             if (its_alright && remember) {
-                const gen_token = await this.genToken(decoded);
+                const gen_token = await this.genToken(decoded, "24h");
                 return {
                     error: null,
                     token: gen_token.token,
                 };
             } else if (its_alright) {
+                const gen_token2 = await this.genToken(decoded, "1h");
                 return {
                     error: null,
-                    token: null,
+                    token: gen_token2.token,
                 };
             } else {
                 return {

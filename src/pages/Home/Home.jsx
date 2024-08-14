@@ -47,7 +47,11 @@ export default function Home() {
     const handleDeleteWebsiteFav = (url) => {
         setWFLoading(true);
 
-        deleteWebsiteFav(gate.user, url).then((res) => {
+        deleteWebsiteFav(
+            gate.user,
+            url,
+            localStorage.getItem("kpture.token")
+        ).then((res) => {
             if (res.error) {
                 openNotification(
                     "Erreur",
@@ -86,7 +90,13 @@ export default function Home() {
         e.preventDefault();
         setSending(true);
 
-        addWebsiteFavorite(gate.user, wf_url, wf_name, wf_img).then((res) => {
+        addWebsiteFavorite(
+            gate.user,
+            wf_url,
+            wf_name,
+            wf_img,
+            localStorage.getItem("kpture.token")
+        ).then((res) => {
             if (!res.error) {
                 openNotification(
                     "Succès",
@@ -138,7 +148,10 @@ export default function Home() {
         setWFLoading(true);
 
         if (gate.user) {
-            retreiveWebsiteFav(gate.user).then((res) => {
+            retreiveWebsiteFav(
+                gate.user,
+                localStorage.getItem("kpture.token")
+            ).then((res) => {
                 setWFList(res.website_fav);
                 setWFLoading(false);
             });

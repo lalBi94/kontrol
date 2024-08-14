@@ -48,6 +48,13 @@ app.use(cors(corsOption));
 
 app.use(express.static(path.join(__dirname, "dist")));
 
+const authenticateToken = require("./middlewares/CanAccess");
+app.all("/pandora/*", authenticateToken);
+app.all("/webfav/*", authenticateToken);
+app.all("/report/*", authenticateToken);
+app.all("/photomaton/*", authenticateToken);
+app.all("/nwrite/*", authenticateToken);
+
 const report = require("./routes/ReportRoutes");
 app.use("/report", report);
 

@@ -19,7 +19,6 @@ const init = {
     user: null,
     level: 0,
     img: null,
-    domain: ""
 };
 
 export const GateContext = React.createContext({
@@ -67,10 +66,6 @@ export const GateProvider = ({ children }) => {
         setPassword(e.target.value);
     };
 
-    /**
-     *
-     * @param {React.FormEvent<HTMLFormElement>} e
-     */
     const handleLogin = (e) => {
         e.preventDefault();
         setIsConnecting(true);
@@ -80,10 +75,7 @@ export const GateProvider = ({ children }) => {
                 localStorage.removeItem("kpture.token");
                 openNotification("Problème", res.error, true, true, true);
             } else {
-                if (res.token) {
-                    localStorage.setItem("kpture.token", res.token);
-                }
-
+                localStorage.setItem("kpture.token", res.token);
                 localStorage.setItem("kpture.user", selected.user);
 
                 setGateData(selected);
@@ -97,6 +89,7 @@ export const GateProvider = ({ children }) => {
     const disconnect = () => {
         localStorage.removeItem("kpture.token");
         socket.emit("kpture.disconnect", gateData.user);
+        setGateData(init);
         window.location.reload();
     };
 
@@ -122,6 +115,7 @@ export const GateProvider = ({ children }) => {
                     });
                 } else {
                     setGateData(d.decoded);
+                    console.log(d.decoded);
                     setIsVisible(false);
                     setIsLoading(false);
                 }
@@ -131,7 +125,7 @@ export const GateProvider = ({ children }) => {
                 setSelected(res.data[0]);
                 setList(res.data);
                 setIsVisible(true);
-                setIsLoading(false); // Loading complete
+                setIsLoading(false);
             });
         }
     }, []);

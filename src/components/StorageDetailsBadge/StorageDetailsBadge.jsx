@@ -3,11 +3,11 @@ import { Stack, Typography, Divider } from "@mui/joy";
 import { useEffect, useState } from "react";
 import { getStorageDetails } from "../../services/Pandora";
 
-export default function StorageDetailsBadge({ level, user }) {
+export default function StorageDetailsBadge({ level, user, token }) {
     const [stats, setStats] = useState({});
 
     useEffect(() => {
-        getStorageDetails(level, user).then((res) => {
+        getStorageDetails(level, user, token).then((res) => {
             setStats(res);
         });
     }, []);

@@ -35,12 +35,14 @@ export default function Olympe() {
     };
 
     useEffect(() => {
-        feedOlympus(gate.user).then((res) => {
-            if (!res.error || res.files.length > 0) {
-                setFiles(res.files);
-                setIsVisible(true);
+        feedOlympus(gate.user, localStorage.getItem("kpture.token")).then(
+            (res) => {
+                if (!res.error || res.files.length > 0) {
+                    setFiles(res.files);
+                    setIsVisible(true);
+                }
             }
-        });
+        );
     }, []);
     return (
         <Box className="olympe-container">

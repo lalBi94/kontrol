@@ -14,10 +14,8 @@ import {
     FormControl,
     Input,
     Button,
-    Skeleton,
 } from "@mui/joy";
 import ClearIcon from "@mui/icons-material/Clear";
-import TipsAndUpdatesIcon from "@mui/icons-material/TipsAndUpdates";
 import WarningAmberIcon from "@mui/icons-material/WarningAmber";
 import "./Galery.scss";
 import { notification } from "antd";
@@ -27,22 +25,20 @@ import {
     massiveDelete,
     retreiveZip,
     sendFileToGalery,
+    createAlbum,
+    getAlbums,
+    getFile,
+    getFilesOf,
+    getTotalFilesCount,
+    deleteAlbum,
 } from "../../services/Photomaton";
 import MainLayout from "../../layout/MainLayout";
 import { useState, useEffect, useRef } from "react";
 import { useGate } from "../../hooks/useGate";
 import DisplayableAdd from "./../../components/DisplayableAdd/DisplayableAdd";
 import Displayable from "../../components/Displayable/Displayable";
-import { getTotalFilesCount } from "../../services/Photomaton";
-import {
-    createAlbum,
-    getAlbums,
-    getFile,
-    getFilesOf,
-} from "../../services/Photomaton";
 import { quantum } from "ldrs";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
-import { deleteAlbum } from "../../services/Photomaton";
 import { useParams } from "react-router-dom";
 
 quantum.register();
@@ -76,7 +72,8 @@ export default function Galery() {
         massiveDelete(
             gate.user,
             JSON.stringify(supressList),
-            currentTitleAlbum
+            currentTitleAlbum,
+            localStorage.getItem("kpture.token")
         ).then((res) => {
             if (!res.error) {
                 setCurrentAlbum(
@@ -111,7 +108,11 @@ export default function Galery() {
     };
 
     const handleDelAlbum = () => {
-        deleteAlbum(gate.user, currentTitleAlbum).then((res) => {
+        deleteAlbum(
+            gate.user,
+            currentTitleAlbum,
+            localStorage.getItem("kpture.token")
+        ).then((res) => {
             setCurrentAlbum(null);
             refreshSelectionPreview();
         });
@@ -148,7 +149,11 @@ export default function Galery() {
             "bottomRight"
         );
 
-        retreiveZip(gate.user, album).then((res) => {
+        retreiveZip(
+            gate.user,
+            album,
+            localStorage.getItem("kpture.token")
+        ).then((res) => {
             let fileName = res.contentDisposition
                 ? res.contentDisposition
                       .split("filename=")[1]
@@ -185,14 +190,23 @@ export default function Galery() {
         setReachedLimit(false);
 
         if (refreshSize) {
-            getTotalFilesCount(gate.user, album).then((res) => {
+            getTotalFilesCount(
+                gate.user,
+                album,
+                localStorage.getItem("kpture.token")
+            ).then((res) => {
                 if (!res.error) {
                     setAlbumSize(res.totalFiles);
                 }
             });
         }
 
-        getFilesOf(gate.user, album, page).then((res) => {
+        getFilesOf(
+            gate.user,
+            album,
+            page,
+            localStorage.getItem("kpture.token")
+        ).then((res) => {
             if (res.isEnd) {
                 setReachedLimit(true);
             }
@@ -250,7 +264,11 @@ export default function Galery() {
         e.preventDefault();
         setIsLoading(true);
 
-        createAlbum(gate.user, albumName).then((res) => {
+        createAlbum(
+            gate.user,
+            albumName,
+            localStorage.getItem("kpture.token")
+        ).then((res) => {
             if (res.error) {
                 openNotification(
                     "Erreur",
@@ -271,7 +289,10 @@ export default function Galery() {
 
     const refreshSelectionPreview = async () => {
         setIsLoading(true);
-        const alb = await getAlbums(gate.user);
+        const alb = await getAlbums(
+            gate.user,
+            localStorage.getItem("kpture.token")
+        );
 
         if (!alb.error) {
             for (let e of alb.albums) {
@@ -280,7 +301,8 @@ export default function Galery() {
                         const query = await getFile(
                             gate.user,
                             e.dirname,
-                            e.presentation
+                            e.presentation,
+                            localStorage.getItem("kpture.token")
                         );
 
                         if (query && query.b64 && query.type) {
@@ -323,7 +345,12 @@ export default function Galery() {
             "bottomRight"
         );
 
-        sendFileToGalery(gate.user, files, currentTitleAlbum).then((res) => {
+        sendFileToGalery(
+            gate.user,
+            files,
+            currentTitleAlbum,
+            localStorage.getItem("kpture.token")
+        ).then((res) => {
             if (res.error) {
                 openNotification(
                     "Erreur",
@@ -346,7 +373,11 @@ export default function Galery() {
                 refreshSelectionPreview();
             }
 
-            handleSelectAlbum(currentTitleAlbum, currentIndex);
+            handleSelectAlbum(
+                currentTitleAlbum,
+                currentIndex,
+                localStorage.getItem("kpture.token")
+            );
         });
 
         console.log(files);

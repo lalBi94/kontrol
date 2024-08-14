@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const updateNote = async (title, content, user, newName) => {
+export const updateNote = async (title, content, user, newName, token) => {
     try {
         const formData = new FormData();
         formData.append("title", title);
@@ -11,6 +11,7 @@ export const updateNote = async (title, content, user, newName) => {
         const query = await axios.post("/nwrite/updateNote", formData, {
             headers: {
                 "Content-Type": "multipart/form-data",
+                Authorization: `Bearer ${token}`,
             },
         });
 
@@ -20,7 +21,7 @@ export const updateNote = async (title, content, user, newName) => {
     }
 };
 
-export const sendNote = async (title, content, user, keyword) => {
+export const sendNote = async (title, content, user, keyword, token) => {
     try {
         const formData = new FormData();
         formData.append("title", title);
@@ -31,6 +32,7 @@ export const sendNote = async (title, content, user, keyword) => {
         const query = await axios.post("/nwrite/sendNote", formData, {
             headers: {
                 "Content-Type": "multipart/form-data",
+                Authorization: `Bearer ${token}`,
             },
         });
 
@@ -40,7 +42,7 @@ export const sendNote = async (title, content, user, keyword) => {
     }
 };
 
-export const getAllNotesOf = async (user) => {
+export const getAllNotesOf = async (user, token) => {
     try {
         const formData = new FormData();
         formData.append("user", user);
@@ -48,6 +50,7 @@ export const getAllNotesOf = async (user) => {
         const query = await axios.post("/nwrite/getAllNotesOf", formData, {
             headers: {
                 "Content-Type": "multipart/form-data",
+                Authorization: `Bearer ${token}`,
             },
         });
 
@@ -57,7 +60,7 @@ export const getAllNotesOf = async (user) => {
     }
 };
 
-export const getNoteData = async (user, title) => {
+export const getNoteData = async (user, title, token) => {
     try {
         const formData = new FormData();
         formData.append("user", user);
@@ -66,6 +69,7 @@ export const getNoteData = async (user, title) => {
         const query = await axios.post("/nwrite/getNoteData", formData, {
             headers: {
                 "Content-Type": "multipart/form-data",
+                Authorization: `Bearer ${token}`,
             },
         });
 
@@ -75,7 +79,7 @@ export const getNoteData = async (user, title) => {
     }
 };
 
-export const deleteNote = async (user, title) => {
+export const deleteNote = async (user, title, token) => {
     try {
         const formData = new FormData();
         formData.append("user", user);
@@ -84,6 +88,7 @@ export const deleteNote = async (user, title) => {
         const query = await axios.post("/nwrite/deleteNote", formData, {
             headers: {
                 "Content-Type": "multipart/form-data",
+                Authorization: `Bearer ${token}`,
             },
         });
 
