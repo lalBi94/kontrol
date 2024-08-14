@@ -36,5 +36,5 @@ dist-ssr
 *.sw?
 
 # accounts 
-api/data/*/
-api/temp/*/
+api/data/*
+api/temp/*
