@@ -31,6 +31,8 @@ Kontrol est une application web auto-hébergeable conçue pour centraliser les o
 
 -   Assurez-vous d'avoir [Node.js (>= v15)](https://nodejs.org/en/download/package-manager) installé sur votre machine.
 
+-   [pnpm](https://pnpm.io/installation), ce package manager est nécessaire pour faire tourner les `.sh` présent a la racine.
+
 -   Vous aurez besoin d'une application comme `NGINX` pour servir le site sur un serveur. `NGINX` est un serveur web performant qui gère les requêtes HTTP et peut agir comme un proxy inverse.
 
 -   Assurez-vous d'avoir un outil comme `ufw` (Uncomplicated Firewall) pour ouvrir les ports nécessaires et permettre l'accès au serveur. Cela est essentiel pour exposer le port sur lequel votre application sera accessible publiquement.
