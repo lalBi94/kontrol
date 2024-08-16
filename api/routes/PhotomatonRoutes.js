@@ -3,6 +3,7 @@ const router = express.Router();
 const Photomaton = require("../service/Photomaton");
 const photomaton_services = new Photomaton();
 const multer = require("multer");
+const fs = require("fs/promises");
 const upload = multer({ dest: "./temp/" });
 
 /**
@@ -92,19 +93,59 @@ router.post("/getFile", multer().any(), async (req, res) => {
     try {
         const { user, album, file } = req.body;
         const d = await photomaton_services.getFile(user, album, file);
-        if (!d || !d.path) {
+
+        if (!d) {
             return res.status(404).json({
                 error: "Le fichier n'existe pas.",
             });
         }
-        res.status(200).download(d.path, (err) => {
-            if (err) {
-                console.error("Impossible d'envoyer le fichier:", err);
-                res.status(500).json({
-                    error: "Erreur lors de l'envoi du fichier.",
-                });
+
+        const stat = await fs.stat(d.path);
+        const fileSize = stat.size;
+        const fileType = d.type;
+
+        if (fileType.startsWith("video/")) {
+            const range = req.headers.range;
+            if (range) {
+                const parts = range.replace(/bytes=/, "").split("-");
+                const start = parseInt(parts[0], 10);
+                const end = parts[1] ? parseInt(parts[1], 10) : fileSize - 1;
+
+                const chunksize = end - start + 1;
+                const fileStream = fs.createReadStream(d.path, { start, end });
+                const head = {
+                    "Content-Range": `bytes ${start}-${end}/${fileSize}`,
+                    "Accept-Ranges": "bytes",
+                    "Content-Length": chunksize,
+                    "Content-Type": fileType,
+                };
+
+                res.writeHead(206, head);
+                fileStream.pipe(res);
+            } else {
+                const head = {
+                    "Content-Length": fileSize,
+                    "Content-Type": fileType,
+                };
+                res.writeHead(200, head);
+                fs.createReadStream(d.path).pipe(res);
             }
-        });
+        } else {
+            res.status(200).json({
+                type: d.type,
+                b64: d.b64,
+            });
+
+            // A voir ?
+            // res.status(200).sendFile(d.path, (err) => {
+            //     if (err) {
+            //         console.error("Impossible d'envoyer le fichier:", err);
+            //         res.status(500).json({
+            //             error: "Erreur lors de l'envoi du fichier.",
+            //         });
+            //     }
+            // });
+        }
     } catch (err) {
         console.error(err);
         res.status(500).json({

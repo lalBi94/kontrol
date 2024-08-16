@@ -241,6 +241,16 @@ export default function NavBar() {
             </Tooltip>
 
             <Stack id="nav-actions">
+                <Tooltip title="Deconnexion">
+                    <Button
+                        color="neutral"
+                        onClick={null}
+                        className="nav-action"
+                    >
+                        <QuestionMarkIcon />
+                    </Button>
+                </Tooltip>
+
                 <Tooltip title="Tutoriel">
                     <Button color="primary" className="nav-action">
                         <QuestionMarkIcon />

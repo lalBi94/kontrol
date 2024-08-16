@@ -61,19 +61,12 @@ export default function Galery() {
     const [albumSize, setAlbumSize] = useState(0);
     const [currentIndex, setCurrentIndex] = useState(1);
     const [reachedLimit, setReachedLimit] = useState(false);
+    const [isLoadingAdding, setLoadingAdding] = useState(false);
+    const [isLoadingMassiveDelete, setLoadingMassiveDelete] = useState(false);
+    const [isLoadingDeleteAlbum, setLoadingDeleteAlbum] = useState(false);
+    const [isLoadingZip, setLoadingZip] = useState(false);
+    const [isLoadingMove, setLoadingMove] = useState(false);
     const params = useParams();
-
-    const handlePlayerReady = (player) => {
-        playerRef.current = player;
-
-        player.on("waiting", () => {
-            videojs.log("player is waiting");
-        });
-
-        player.on("dispose", () => {
-            videojs.log("player will dispose");
-        });
-    };
 
     const handleConsultImg = (link) => {
         setInConsulting(true);
@@ -81,6 +74,7 @@ export default function Galery() {
     };
 
     const handleDelete = () => {
+        setLoadingMassiveDelete(true);
         massiveDelete(
             gate.user,
             JSON.stringify(supressList),
@@ -116,10 +110,13 @@ export default function Galery() {
                     "top"
                 );
             }
+
+            setLoadingMassiveDelete(false);
         });
     };
 
     const handleDelAlbum = () => {
+        setLoadingDeleteAlbum(true);
         deleteAlbum(
             gate.user,
             currentTitleAlbum,
@@ -127,6 +124,7 @@ export default function Galery() {
         ).then((res) => {
             setCurrentAlbum(null);
             refreshSelectionPreview();
+            setLoadingDeleteAlbum(false);
         });
     };
 
@@ -151,6 +149,7 @@ export default function Galery() {
 
     const onZipDownload = (album) => {
         setIsLoading(true);
+        setLoadingZip(true);
 
         openNotification(
             "En cours...",
@@ -191,6 +190,7 @@ export default function Galery() {
                 "top"
             );
 
+            setLoadingZip(false);
             setIsLoading(false);
         });
     };
@@ -200,6 +200,7 @@ export default function Galery() {
         setCurrentAlbumLoading(true);
         setCurrentIndex(page);
         setReachedLimit(false);
+        setLoadingMove(true);
 
         if (refreshSize) {
             getTotalFilesCount(
@@ -233,6 +234,7 @@ export default function Galery() {
             }
 
             setCurrentAlbumLoading(false);
+            setLoadingMove(false);
             setIsLoading(false);
         });
     };
@@ -309,6 +311,7 @@ export default function Galery() {
         if (!alb.error) {
             for (let e of alb.albums) {
                 if (e.presentation) {
+                    console.log(e.presentation);
                     try {
                         const query = await getFile(
                             gate.user,
@@ -344,6 +347,7 @@ export default function Galery() {
 
     const handleSendFiles = (e) => {
         setIsLoading(true);
+        setLoadingAdding(true);
         e.preventDefault();
 
         const files = e.target.files;
@@ -390,6 +394,8 @@ export default function Galery() {
                 currentIndex,
                 localStorage.getItem("kpture.token")
             );
+
+            setLoadingAdding(false);
         });
 
         console.log(files);
@@ -527,6 +533,7 @@ export default function Galery() {
                                 <Button
                                     color="success"
                                     onClick={onBtnFileClick}
+                                    loading={isLoadingAdding}
                                 >
                                     <input
                                         onChange={handleSendFiles}
@@ -546,12 +553,17 @@ export default function Galery() {
                                         }}
                                         variant="solid"
                                         className="actions"
+                                        loading={isLoadingZip}
                                     >
                                         Tout télécharger en .zip
                                     </Button>
                                 ) : null}
 
-                                <Button color="danger" onClick={handleDelAlbum}>
+                                <Button
+                                    color="danger"
+                                    loading={isLoadingDeleteAlbum}
+                                    onClick={handleDelAlbum}
+                                >
                                     Supprimer l'album
                                 </Button>
 
@@ -562,23 +574,24 @@ export default function Galery() {
                                         variant="solid"
                                         className="actions"
                                         handleDelete
+                                        loading={isLoadingMassiveDelete}
                                     >
                                         Tout supprimer ({supressList.length})
                                     </Button>
                                 ) : null}
 
                                 <Button
-                                    disabled={currentIndex === 1}
+                                    disabled={
+                                        currentIndex === 1 || isLoadingMove
+                                    }
                                     color="neutral"
+                                    onClick={handleBack}
                                 >
-                                    <ArrowBackIosNewIcon
-                                        fontSize="small"
-                                        onClick={handleBack}
-                                    />
+                                    <ArrowBackIosNewIcon fontSize="small" />
                                 </Button>
 
                                 <Button
-                                    disabled={reachedLimit}
+                                    disabled={reachedLimit || isLoadingMove}
                                     color="neutral"
                                     onClick={handleNext}
                                 >
@@ -647,17 +660,17 @@ export default function Galery() {
                         {currentAlbum ? (
                             <Box id="galery-navigator">
                                 <Button
-                                    disabled={currentIndex === 1}
+                                    disabled={
+                                        currentIndex === 1 || isLoadingMove
+                                    }
                                     color="neutral"
+                                    onClick={handleBack}
                                 >
-                                    <ArrowBackIosNewIcon
-                                        fontSize="small"
-                                        onClick={handleBack}
-                                    />
+                                    <ArrowBackIosNewIcon fontSize="small" />
                                 </Button>
 
                                 <Button
-                                    disabled={reachedLimit}
+                                    disabled={reachedLimit || isLoadingMove}
                                     color="neutral"
                                     onClick={handleNext}
                                 >

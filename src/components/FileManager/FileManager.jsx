@@ -45,6 +45,16 @@ export default function FileManager({ targetDir = "" }) {
     const [apiNotif, contextHolder] = notification.useNotification();
     const [inDrag, setInDrag] = useState(false);
     const buttonInputFile = useRef(null);
+    const [isLoadingMkdir, setIsLoadingMkdir] = useState(false);
+    const [isLoadingAdd, setIsLoadingAdd] = useState(false);
+
+    const handleLoadingAdd = () => {
+        setIsLoadingAdd(!isLoadingAdd);
+    };
+
+    const handleLoadingMkdir = () => {
+        setIsLoadingMkdir(!isLoadingMkdir);
+    };
 
     function filterFilenamesOrDirnames(objList, searchStr) {
         return objList
@@ -242,6 +252,7 @@ export default function FileManager({ targetDir = "" }) {
 
     const handleDrop = (event = null, f = null) => {
         setFilesLoading(true);
+        setIsLoadingAdd(true);
 
         if (event) {
             event.preventDefault();
@@ -286,6 +297,7 @@ export default function FileManager({ targetDir = "" }) {
                 );
             }
 
+            setIsLoadingAdd(false);
             setInDrag(false);
             setFilesLoading(false);
         });
@@ -343,11 +355,11 @@ export default function FileManager({ targetDir = "" }) {
     };
 
     const handleCreateDir = () => {
+        setIsLoadingMkdir(true);
         const nameDir = prompt("Nom du dossier");
+        setFilesLoading(true);
 
         if (nameDir || nameDir.length > 0) {
-            setFilesLoading(true);
-
             createDir(
                 gate.user,
                 nameDir,
@@ -356,7 +368,10 @@ export default function FileManager({ targetDir = "" }) {
             ).then((res) => {
                 move(pathDir);
                 setFilesLoading(false);
+                setIsLoadingMkdir(false);
             });
+        } else {
+            setIsLoadingMkdir(false);
         }
     };
 
@@ -403,6 +418,7 @@ export default function FileManager({ targetDir = "" }) {
                     <Tooltip title="Créer un dossier">
                         <Button
                             className=""
+                            loading={isLoadingMkdir}
                             color="primary"
                             onClick={handleCreateDir}
                         >
@@ -593,7 +609,7 @@ export default function FileManager({ targetDir = "" }) {
                             Déposez votre fichier ici
                         </Typography>
                         <Typography className="dragzone-txt">ou</Typography>
-                        <Button onClick={onBtnFileClick}>
+                        <Button onClick={onBtnFileClick} loading={isLoadingAdd}>
                             <input
                                 onChange={onBtnFileConfirm}
                                 ref={buttonInputFile}

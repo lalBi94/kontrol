@@ -90,11 +90,15 @@ export default function Chat() {
         setIsLoadingChat(true);
         localStorage.setItem("kpture.currentDiscussion", discussion);
         setCurrentDiscussionName(discussion);
+        setChat([]);
         socket.emit("kpture.getMessages", discussion);
     };
 
     const deleteDiscussion = (discussionId, discussionName) => {
         socket.emit("kpture.deleteDiscussion", discussionId, discussionName);
+        setDiscussions(discussions.filter((d) => d.id !== discussionId));
+
+        setChat([]);
     };
 
     useEffect(() => {
@@ -320,7 +324,6 @@ export default function Chat() {
                                         openInAnotherWindow={false}
                                         text={discussion.name}
                                         tooltip={discussion.name}
-                                        id={discussion.id}
                                     />
                                 </Box>
                             ))}

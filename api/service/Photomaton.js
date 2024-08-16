@@ -413,7 +413,9 @@ class Photomaton {
             const b64 = Buffer.from(pre).toString("base64");
             const type = this.getTypeOfArrayBuffer(pre);
 
-            return !pre || !type || !b64 ? null : { b64, type };
+            return !pre || !type || !b64
+                ? null
+                : { b64, type, path: path_to_target };
         } catch (err) {
             console.error("Impossible de trouver le fichier.", err);
             return null;
@@ -441,6 +443,7 @@ class Photomaton {
                     const files = await fs.readdir(path_to_album, {
                         withFileTypes: true,
                     });
+
                     const photos = [];
 
                     for (let file of files) {
@@ -457,10 +460,27 @@ class Photomaton {
                         }
                     }
 
+                    const presentation =
+                        photos.length > 0
+                            ? photos[
+                                  photos.length > 0
+                                      ? Math.floor(
+                                            Math.random() * photos.length
+                                        )
+                                      : 0
+                              ]
+                            : null;
+
+                    console.log({
+                        dirname: album.name,
+                        size: files.length,
+                        presentation,
+                    });
+
                     stock.push({
                         dirname: album.name,
-                        size: photos.length,
-                        presentation: photos.length > 0 ? photos[0] : null,
+                        size: files.length,
+                        presentation,
                     });
                 }
             }

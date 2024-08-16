@@ -57,9 +57,9 @@ export default function Displayable({
                         img ? "displayable-links-special" : "displayable-links"
                     }`}
                 >
-                    <spans className={img ? "" : "londrina-solid-regular txt"}>
+                    <span className={img ? "" : "londrina-solid-regular txt"}>
                         {text}
-                    </spans>
+                    </span>
                 </Typography>
             </Stack>
         </Tooltip>
