@@ -132,6 +132,8 @@ Les contributions sont les bienvenues ! Forkez le dépôt et soumettez une pull 
 
 En tant que contributeur principal, je m'assure de contrôler les commits avant leur intégration. Je prendrai également l'initiative de pusher directement du code sur la branche principale lorsque cela sera nécessaire. Merci pour votre compréhension et votre soutien !
 
+Dans la doc POSTMAN, j'ai oublié de mentionner si une route a besoin d'une autorisation ou non. Sachez que : `pandora`, `webfav`,`report`,`photomaton`,`nwrite` nécessite un token lambda. Et que : `GET /report/`, `POST /users/register` nécessite un token admin.
+
 ## Licence 📜
 
 Ce projet est sous licence MIT - voir le fichier [LICENSE](LICENSE) pour plus de détails.

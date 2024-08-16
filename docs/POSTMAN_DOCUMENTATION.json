@@ -1,0 +1,763 @@
+{
+    "info": {
+        "_postman_id": "kontrol-api-docs",
+        "name": "API de Kontrol (16/08/2024)",
+        "description": "Retrouvez ici la documentation complete de l'API de Kontrol du 16/08/2024",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+        {
+            "name": "API Webfav",
+            "item": [
+                {
+                    "name": "Ajouter un site aux favoris",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "multipart/form-data"
+                            }
+                        ],
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "user",
+                                    "value": "nom_utilisateur",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "url",
+                                    "value": "https://example.com",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "name",
+                                    "value": "Nom du site",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "image_url",
+                                    "value": "https://example.com/image.png",
+                                    "type": "text"
+                                }
+                            ]
+                        },
+                        "url": {
+                            "raw": "{{baseUrl}}/webfav/addWebsiteFav",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "webfav",
+                                "addWebsiteFav"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Récupérer les favoris d'un utilisateur",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/webfav/retreiveWebsiteFav/nom_utilisateur",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "webfav",
+                                "retreiveWebsiteFav",
+                                "nom_utilisateur"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Supprimer un site des favoris",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "multipart/form-data"
+                            }
+                        ],
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "user",
+                                    "value": "nom_utilisateur",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "url",
+                                    "value": "https://example.com",
+                                    "type": "text"
+                                }
+                            ]
+                        },
+                        "url": {
+                            "raw": "{{baseUrl}}/webfav/deleteWebsiteFav",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "webfav",
+                                "deleteWebsiteFav"
+                            ]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "API NWrite",
+            "item": [
+                {
+                    "name": "Envoyer une note",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "multipart/form-data"
+                            }
+                        ],
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "title",
+                                    "value": "Titre de la note",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "content",
+                                    "value": "Ceci est le contenu de la note.",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "user",
+                                    "value": "nom_utilisateur",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "keyword",
+                                    "value": "[\"important\",\"urgent\"]",
+                                    "type": "text"
+                                }
+                            ]
+                        },
+                        "url": {
+                            "raw": "{{baseUrl}}/nwrite/sendNote",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "nwrite",
+                                "sendNote"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Mettre à jour une note",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "multipart/form-data"
+                            }
+                        ],
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "title",
+                                    "value": "Titre de la note",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "content",
+                                    "value": "Nouveau contenu de la note.",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "user",
+                                    "value": "nom_utilisateur",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "newName",
+                                    "value": "Nouveau nom de la note",
+                                    "type": "text"
+                                }
+                            ]
+                        },
+                        "url": {
+                            "raw": "{{baseUrl}}/nwrite/updateNote",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "nwrite",
+                                "updateNote"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Supprimer une note",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "multipart/form-data"
+                            }
+                        ],
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "user",
+                                    "value": "nom_utilisateur",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "title",
+                                    "value": "Titre de la note",
+                                    "type": "text"
+                                }
+                            ]
+                        },
+                        "url": {
+                            "raw": "{{baseUrl}}/nwrite/deleteNote",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "nwrite",
+                                "deleteNote"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Obtenir toutes les notes d'un utilisateur",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}",
+                                "type": "text"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "multipart/form-data"
+                            }
+                        ],
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "user",
+                                    "value": "nom_utilisateur",
+                                    "type": "text"
+                                }
+                            ]
+                        },
+                        "url": {
+                            "raw": "{{baseUrl}}/nwrite/getAllNotesOf",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "nwrite",
+                                "getAllNotesOf"
+                            ]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "API Utilisateurs",
+            "item": [
+                {
+                    "name": "Récupérer tous les utilisateurs",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/users",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "users"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Obtenir les informations de session",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}",
+                                "type": "text"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "multipart/form-data"
+                            }
+                        ],
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "token",
+                                    "value": "{{token}}",
+                                    "type": "text"
+                                }
+                            ]
+                        },
+                        "url": {
+                            "raw": "{{baseUrl}}/users/getSessionOf",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "users",
+                                "getSessionOf"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Connexion utilisateur",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "multipart/form-data"
+                            }
+                        ],
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "name",
+                                    "value": "nom_utilisateur",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "password",
+                                    "value": "mot_de_passe",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "remember",
+                                    "value": "true",
+                                    "type": "text"
+                                }
+                            ]
+                        },
+                        "url": {
+                            "raw": "{{baseUrl}}/users/login",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "users",
+                                "login"
+                            ]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "API Rapports",
+            "item": [
+                {
+                    "name": "Envoyer un rapport",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "multipart/form-data"
+                            }
+                        ],
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "message",
+                                    "value": "Détails du rapport",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "from",
+                                    "value": "expediteur@example.com",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "contact",
+                                    "value": "contact@example.com",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "nature",
+                                    "value": "Type de problème",
+                                    "type": "text"
+                                }
+                            ]
+                        },
+                        "url": {
+                            "raw": "{{baseUrl}}/report/send",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "report",
+                                "send"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Récupérer tous les rapports",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/report",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "report"
+                            ]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "API Pandora",
+            "item": [
+                {
+                    "name": "Récupérer un fichier",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}",
+                                "type": "text"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "multipart/form-data"
+                            }
+                        ],
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "user",
+                                    "value": "nom_utilisateur",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "pth",
+                                    "value": "/chemin/vers/fichier",
+                                    "type": "text"
+                                }
+                            ]
+                        },
+                        "url": {
+                            "raw": "{{baseUrl}}/pandora/retreiveFile",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "pandora",
+                                "retreiveFile"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Envoyer un fichier dans le stockage",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}",
+                                "type": "text"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "multipart/form-data"
+                            }
+                        ],
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "user",
+                                    "value": "nom_utilisateur",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "pth",
+                                    "value": "/chemin/vers/dossier",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "files",
+                                    "type": "file"
+                                }
+                            ]
+                        },
+                        "url": {
+                            "raw": "{{baseUrl}}/pandora/sendFileToStorage",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "pandora",
+                                "sendFileToStorage"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Créer un dossier",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}",
+                                "type": "text"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "multipart/form-data"
+                            }
+                        ],
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "user",
+                                    "value": "nom_utilisateur",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "dirName",
+                                    "value": "nom_du_dossier",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "pth",
+                                    "value": "/chemin/vers/emplacement",
+                                    "type": "text"
+                                }
+                            ]
+                        },
+                        "url": {
+                            "raw": "{{baseUrl}}/pandora/createDir",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "pandora",
+                                "createDir"
+                            ]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "API Photomaton",
+            "item": [
+                {
+                    "name": "Envoyer un fichier dans la galerie",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}",
+                                "type": "text"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "multipart/form-data"
+                            }
+                        ],
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "user",
+                                    "value": "nom_utilisateur",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "album",
+                                    "value": "nom_de_l_album",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "files",
+                                    "type": "file"
+                                }
+                            ]
+                        },
+                        "url": {
+                            "raw": "{{baseUrl}}/photomaton/sendFileToGalery",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "photomaton",
+                                "sendFileToGalery"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Récupérer les albums",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}",
+                                "type": "text"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "multipart/form-data"
+                            }
+                        ],
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "user",
+                                    "value": "nom_utilisateur",
+                                    "type": "text"
+                                }
+                            ]
+                        },
+                        "url": {
+                            "raw": "{{baseUrl}}/photomaton/getAlbums",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "photomaton",
+                                "getAlbums"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Récupérer un album en ZIP",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}",
+                                "type": "text"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "multipart/form-data"
+                            }
+                        ],
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "user",
+                                    "value": "nom_utilisateur",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "album",
+                                    "value": "nom_de_l_album",
+                                    "type": "text"
+                                }
+                            ]
+                        },
+                        "url": {
+                            "raw": "{{baseUrl}}/photomaton/retreiveZip",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "photomaton",
+                                "retreiveZip"
+                            ]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        }
+    ]
+}
