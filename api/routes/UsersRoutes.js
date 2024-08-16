@@ -13,9 +13,12 @@ const multer = require("multer");
 router.get("/", async (req, res) => {
     try {
         const d = await users_services.retreiveAll();
-        res.json(d);
+        res.status(200).json(d);
     } catch (err) {
         console.error(err);
+        res.status(500).json({
+            error: "Erreur lors de la récupération des utilisateurs.",
+        });
     }
 });
 
@@ -30,9 +33,12 @@ router.post("/getSessionOf", multer().any(), async (req, res) => {
     try {
         const { token } = req.body;
         const d = await users_services.decodeToken(token);
-        res.json(d);
+        res.status(200).json(d);
     } catch (err) {
         console.error(err);
+        res.status(500).json({
+            error: "Erreur lors de la décodification du token.",
+        });
     }
 });
 
@@ -53,9 +59,12 @@ router.post("/login", multer().any(), async (req, res) => {
             password,
             remember === "true"
         );
-        res.json(d);
+        res.status(200).json(d);
     } catch (err) {
         console.error(err);
+        res.status(500).json({
+            error: "Erreur lors de la tentative de connexion.",
+        });
     }
 });
 

@@ -188,17 +188,17 @@ export default function Notes() {
 
     const modules = {
         toolbar: [
-            [{ font: [] }], // Font selector
+            [{ font: [] }],
             [{ header: [1, 2, 3, 4, 5, 6, false] }],
-            [{ size: [] }], // Text size selector
-            ["bold", "italic", "underline", "strike"], // Text formats
-            [{ color: [] }, { background: [] }], // Text and background colors
-            [{ script: "sub" }, { script: "super" }], // Subscript / Superscript
+            [{ size: [] }],
+            ["bold", "italic", "underline", "strike"],
+            [{ color: [] }, { background: [] }],
+            [{ script: "sub" }, { script: "super" }],
             [{ list: "ordered" }, { list: "bullet" }],
-            [{ indent: "-1" }, { indent: "+1" }], // Indentation
-            ["link", "image", "video"], // Links, images, videos
-            ["code-block"], // Code block
-            ["clean"], // Remove formatting
+            [{ indent: "-1" }, { indent: "+1" }],
+            ["link", "image", "video"],
+            ["code-block"],
+            ["clean"],
         ],
     };
 

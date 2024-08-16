@@ -16,3 +16,14 @@ export const sendReport = async (message, from, contact, nature, token) => {
 
     return query.data;
 };
+
+export const getReports = async (token) => {
+    const query = await axios.get("/report", {
+        headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${token}`,
+        },
+    });
+
+    return query.data;
+};

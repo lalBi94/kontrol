@@ -12,6 +12,46 @@ class Report {
         this.report_data = path.join(__dirname, "../reports");
     }
 
+    transformToJSON(text) {
+        let lines = text
+            .split("-")
+            .map((line) => line.trim())
+            .filter((line) => line !== "");
+
+        let data = {};
+
+        lines.forEach((line) => {
+            let parts = line.split(":");
+            let key = parts[0].trim();
+            let value = parts.slice(1).join(":").trim();
+
+            data[key.toLowerCase()] = value;
+        });
+
+        return data;
+    }
+
+    async getReports() {
+        try {
+            const reports = await fs.readdir(this.report_data);
+            const stock = [];
+
+            for (let file of reports) {
+                const report = (
+                    await fs.readFile(path.join(this.report_data, file))
+                ).toString();
+
+                let json_report = this.transformToJSON(report);
+                stock.push({ ...json_report, queue: file.slice(0, -4) });
+            }
+
+            return { error: null, reports: stock };
+        } catch (err) {
+            console.error(err);
+            return { error: "Impossible de récuperer les reports." };
+        }
+    }
+
     /**
      * Publier un report
      * @param {string} message

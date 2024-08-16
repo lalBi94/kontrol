@@ -45,10 +45,11 @@ const corsOption = {
 const app = express();
 app.use(bodyParser.json());
 app.use(cors(corsOption));
-
+app.use(express.json({ limit: "100mb" }));
+app.use(express.urlencoded({ extended: true, limit: "100mb" }));
 app.use(express.static(path.join(__dirname, "dist")));
 
-const authenticateToken = require("./middlewares/CanAccess");
+const { authenticateToken } = require("./middlewares/CanAccess");
 app.all("/pandora/*", authenticateToken);
 app.all("/webfav/*", authenticateToken);
 app.all("/report/*", authenticateToken);

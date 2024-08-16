@@ -3,32 +3,51 @@ import * as d3 from "d3";
 import "./Graph.scss";
 
 export default function Graph({ nodes, links }) {
-    const ref = useRef(null);
+    const svgRef = useRef(null);
 
     useEffect(() => {
-        const width = ref.current.clientWidth;
-        const height = ref.current.clientHeight;
+        if (!svgRef.current) return;
+
+        const width = svgRef.current.clientWidth;
+        const height = svgRef.current.clientHeight;
 
         const svg = d3
-            .select(ref.current)
-            .attr("width", "100%")
-            .attr("height", "100%")
+            .select(svgRef.current)
+            .attr("width", width)
+            .attr("height", height)
             .style("border", "1px solid black");
 
-        // Ajustements pour espacer les sommets
+        const zoom = d3
+            .zoom()
+            .scaleExtent([0.5, 3])
+            .on("zoom", (event) => {
+                svg.selectAll("g").attr("transform", event.transform);
+            });
+
+        svg.call(zoom);
+
+        const tooltip = d3
+            .select("body")
+            .append("div")
+            .attr("class", "tooltip")
+            .style("opacity", 0);
+
+        svg.selectAll("*").remove();
+
         const simulation = d3
             .forceSimulation(nodes)
             .force(
                 "link",
-                d3.forceLink(links).id((d) => d.id)
+                d3
+                    .forceLink(links)
+                    .id((d) => d.id)
+                    .distance(100)
             )
-            .force("charge", d3.forceManyBody().strength(-300)) // Augmentez la force de répulsion
+            .force("charge", d3.forceManyBody().strength(-200))
             .force("center", d3.forceCenter(width / 2, height / 2))
-            .force("collision", d3.forceCollide().radius(60)) // Augmentez le rayon de collision
-            .force("x", d3.forceX().strength(0.1)) // Diminuez la force pour moins d'attraction au centre
-            .force("y", d3.forceY().strength(0.1)); // Idem pour l'axe Y
-
-        svg.selectAll("*").remove();
+            .force("collision", d3.forceCollide().radius(30))
+            .force("x", d3.forceX().strength(0.1))
+            .force("y", d3.forceY().strength(0.1));
 
         const link = svg
             .append("g")
@@ -59,28 +78,38 @@ export default function Graph({ nodes, links }) {
                     .on("start", dragstarted)
                     .on("drag", dragged)
                     .on("end", dragended)
-            );
+            )
+            .on("mouseover", function (event, d) {
+                tooltip.transition().duration(200).style("opacity", 0.9);
+                tooltip
+                    .html(d.title)
+                    .style("left", event.pageX + 5 + "px")
+                    .style("top", event.pageY - 28 + "px");
+            })
+            .on("mouseout", function () {
+                tooltip.transition().duration(500).style("opacity", 0);
+            });
 
         node.each(function (d) {
             const group = d3.select(this);
 
             const text = group
                 .append("text")
-                .attr("x", -34)
+                .attr("x", 0)
                 .attr("y", 20)
-                .attr("dy", ".35em")
+                .attr("text-anchor", "middle")
                 .attr("fill", "white")
                 .style("font-size", "10px")
-                .text(d.title);
+                .text(truncateText(d.title, 10));
 
             const bbox = text.node().getBBox();
 
             group
                 .insert("rect", "text")
-                .attr("x", bbox.x)
-                .attr("y", bbox.y)
-                .attr("width", bbox.width)
-                .attr("height", bbox.height)
+                .attr("x", bbox.x - 2)
+                .attr("y", bbox.y - 2)
+                .attr("width", bbox.width + 4)
+                .attr("height", bbox.height + 4)
                 .attr("fill", "black");
         });
 
@@ -90,13 +119,7 @@ export default function Graph({ nodes, links }) {
                 .attr("x2", (d) => d.target.x)
                 .attr("y2", (d) => d.target.y);
 
-            node.attr(
-                "transform",
-                (d) =>
-                    `translate(${d.x + Math.sin(d.x / 50) * 10},${
-                        d.y + Math.cos(d.y / 50) * 10
-                    })`
-            );
+            node.attr("transform", (d) => `translate(${d.x},${d.y})`);
         });
 
         simulation.force("link").links(links);
@@ -117,7 +140,19 @@ export default function Graph({ nodes, links }) {
             d.fx = null;
             d.fy = null;
         }
+
+        function truncateText(text, maxLength) {
+            return text.length > maxLength
+                ? text.slice(0, maxLength) + "..."
+                : text;
+        }
     }, [nodes, links]);
 
-    return <svg id="mind" ref={ref}></svg>;
+    return (
+        <svg
+            id="mind"
+            ref={svgRef}
+            style={{ width: "100%", height: "100%" }}
+        ></svg>
+    );
 }

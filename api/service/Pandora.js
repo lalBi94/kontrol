@@ -75,7 +75,6 @@ class Pandora {
         async function calculateSize(directory) {
             const files = await fs.readdir(directory, { withFileTypes: true });
 
-            // Utilisation de Promise.all pour paralléliser les opérations sur les fichiers
             await Promise.all(
                 files.map(async (file) => {
                     const filePath = path.join(directory, file.name);

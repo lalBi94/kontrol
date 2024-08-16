@@ -10,6 +10,7 @@ import Galery from "./pages/Galery/Galery";
 import Chat from "./pages/Chat/Chat";
 import DomainGestion from "./pages/DomainGestion/DomainGestion";
 import Notes from "./pages/Notes/Notes";
+import KptureReport from "./pages/KptureReport/KptureReport";
 
 const router = createBrowserRouter([
     { path: "*", element: <Home /> },
@@ -27,8 +28,12 @@ const router = createBrowserRouter([
     { path: "/chat", element: <Chat /> },
     { path: "/messagerie", element: <Chat /> },
 
-    { path: "/kptureadmin", element: <DomainGestion /> },
     { path: "/notes", element: <Notes /> },
+    { path: "/cours", element: <Notes /> },
+    { path: "/article", element: <Notes /> },
+
+    { path: "/kptureadmin", element: <DomainGestion /> },
+    { path: "/kpturereport", element: <KptureReport /> },
 ]);
 
 console.log(import.meta.env);

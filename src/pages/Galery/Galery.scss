@@ -159,11 +159,12 @@
         }
 
         #album-selected-container {
-            display: flex;
             flex-direction: row;
             flex-wrap: wrap;
             padding: 10px;
             justify-content: center;
+            width: 100%;
+            box-sizing: border-box;
             align-items: center;
             gap: 30px;
             position: relative;
@@ -178,7 +179,7 @@
             }
 
             .album-selected-ratio-files {
-                width: 180px;
+                width: 200px;
                 cursor: pointer;
                 box-shadow: 8px 8px 8px hsl(0deg 0% 0% / 0.46);
                 border-radius: 5px;

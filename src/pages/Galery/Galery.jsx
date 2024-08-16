@@ -63,6 +63,18 @@ export default function Galery() {
     const [reachedLimit, setReachedLimit] = useState(false);
     const params = useParams();
 
+    const handlePlayerReady = (player) => {
+        playerRef.current = player;
+
+        player.on("waiting", () => {
+            videojs.log("player is waiting");
+        });
+
+        player.on("dispose", () => {
+            videojs.log("player will dispose");
+        });
+    };
+
     const handleConsultImg = (link) => {
         setInConsulting(true);
         setToConsult(link);
@@ -454,7 +466,6 @@ export default function Galery() {
                         prions de ne pas stocker de films.
                     </Alert>
                 </Stack>
-
                 <Typography className="" id="galery-title" level="h3">
                     <span className="poppins-medium-italic">
                         Vos Albums <Chip variant="solid">{galery.length}</Chip>
@@ -490,9 +501,7 @@ export default function Galery() {
                           ))
                         : null}
                 </Stack>
-
                 <Divider orientation="horizontal" />
-
                 {currentAlbum ? (
                     <Stack id="album-selected-general">
                         <Stack id="album-headers">
@@ -605,8 +614,9 @@ export default function Galery() {
                                             {v.type.split("/")[0] ===
                                             "video" ? (
                                                 <video
-                                                    loading="lazy"
                                                     controls
+                                                    autoplay="false"
+                                                    playsInline
                                                     className="album-selected-files"
                                                     src={`data:${v.type};base64,${v.b64}`}
                                                 />

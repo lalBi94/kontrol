@@ -10,14 +10,18 @@ const multer = require("multer");
  * @param {string} user - Nom d'utilisateur.
  * @param {string} title - Titre de la note.
  * @returns {Promise<{error: string|null}>} Erreur ou non.
+ * @throws {500} Erreur lors de la suppression de la note !.
  */
 router.post("/deleteNote", multer().any(), async (req, res) => {
     try {
         const { user, title } = req.body;
         const d = await nwrite_services.deleteNote(user, title);
-        res.json(d);
+        res.status(200).json(d);
     } catch (err) {
         console.error(err);
+        res.status(500).json({
+            error: "Erreur lors de la suppression de la note !",
+        });
     }
 });
 
@@ -29,6 +33,7 @@ router.post("/deleteNote", multer().any(), async (req, res) => {
  * @param {string} user - Nom d'utilisateur.
  * @param {string} keyword - Mots-clés en rapport avec la note.
  * @returns {Promise<{error: string|null}>} Erreur ou non.
+ * @throws {500} Erreur lors de l'envoie de la note !.
  */
 router.post("/sendNote", multer().any(), async (req, res) => {
     try {
@@ -39,9 +44,12 @@ router.post("/sendNote", multer().any(), async (req, res) => {
             user,
             JSON.parse(keyword)
         );
-        res.json(d);
+        res.status(200).json(d);
     } catch (err) {
         console.error(err);
+        res.status(500).json({
+            error: "Erreur lors de l'envoie de la note !",
+        });
     }
 });
 
@@ -53,6 +61,7 @@ router.post("/sendNote", multer().any(), async (req, res) => {
  * @param {string} user - Nom d'utilisateur.
  * @param {string} keyword - nouveau Mots-clés en rapport avec la note.
  * @returns {Promise<{error: string|null}>} Erreur ou non.
+ * @throws {500} Erreur lors de l'update de la note !.
  */
 router.post("/updateNote", multer().any(), async (req, res) => {
     try {
@@ -64,9 +73,12 @@ router.post("/updateNote", multer().any(), async (req, res) => {
             content,
             newName
         );
-        res.json(d);
+        res.status(200).json(d);
     } catch (err) {
         console.error(err);
+        res.status(500).json({
+            error: "Erreur lors de l'update de la note !",
+        });
     }
 });
 
@@ -75,14 +87,18 @@ router.post("/updateNote", multer().any(), async (req, res) => {
  * @route POST /nwrite/getAllNotesOf
  * @param {string} user - Nom d'utilisateur.
  * @returns {Promise<{error: string|null}, title_list: Array<String>} Erreur ou non.
+ * @throws {500} Erreur lors de la récupération des notes !.
  */
 router.post("/getAllNotesOf", multer().any(), async (req, res) => {
     try {
         const { user } = req.body;
         const d = await nwrite_services.getAllNotesOf(user);
-        res.json(d);
+        res.status(200).json(d);
     } catch (err) {
         console.error(err);
+        res.status(500).json({
+            error: "Erreur lors de la récupération des notes !",
+        });
     }
 });
 
@@ -92,14 +108,18 @@ router.post("/getAllNotesOf", multer().any(), async (req, res) => {
  * @param {string} user - Nom d'utilisateur.
  * @param {string} title - Titre de la note.
  * @returns {Promise<{error: string|null}, content: {tile: string, content: string}} Erreur ou non.
+ * @throws {500} Erreur lors de la récupération d'une note !.
  */
 router.post("/getNoteData", multer().any(), async (req, res) => {
     try {
         const { user, title } = req.body;
         const d = await nwrite_services.getNoteData(user, title);
-        res.json(d);
+        res.status(200).json(d);
     } catch (err) {
         console.error(err);
+        res.status(500).json({
+            error: "Erreur lors de la récupération d'une note !",
+        });
     }
 });
 

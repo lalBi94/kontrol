@@ -12,6 +12,17 @@
     justify-content: center;
     position: relative;
 
+    &:hover {
+        cursor: pointer;
+        transform: scale(1.05);
+        border-radius: 9px;
+        transition: 0.1s ease-in-out;
+
+        .displayable-links {
+            color: transparent;
+        }
+    }
+
     .displayable-links {
         color: $white;
         padding: 5px;
@@ -39,16 +50,5 @@
         border-top-right-radius: 5px;
         border-top: none;
         border-right: none;
-    }
-
-    &:hover {
-        .displayable-links {
-            color: transparent;
-        }
-
-        cursor: pointer;
-        transform: scale(1.05);
-        border-radius: 9px;
-        transition: 0.1s ease-in-out;
     }
 }
