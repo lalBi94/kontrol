@@ -166,7 +166,6 @@ router.post("/getFile", multer().any(), async (req, res) => {
 router.put("/massiveDelete", multer().any(), async (req, res) => {
     try {
         const { supress, album, user } = req.body;
-        console.log(supress, album, user);
         const d = await photomaton_services.massiveDelete(
             user,
             JSON.parse(supress),

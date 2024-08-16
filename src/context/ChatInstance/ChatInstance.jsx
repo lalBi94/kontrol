@@ -37,8 +37,6 @@ export const ChatInstanceProvider = ({ children }) => {
                 date,
                 avatar
             ) => {
-                console.log(discussion, message, author, date, avatar);
-
                 if (gate.user !== author) {
                     notificationAudio.volume = 0.3;
                     notificationAudio.play();

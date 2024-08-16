@@ -78,6 +78,10 @@
     #galery-title {
         display: flex;
         gap: 15px;
+
+        span {
+            color: $clear_black;
+        }
     }
 
     #no-album-container {
@@ -123,6 +127,10 @@
                 display: flex;
                 flex-direction: row;
                 gap: 88px;
+
+                span {
+                    color: $clear_black;
+                }
             }
 
             #album-chips {

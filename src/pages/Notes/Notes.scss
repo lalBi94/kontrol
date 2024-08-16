@@ -62,6 +62,14 @@
                 gap: 5px;
                 width: 100%;
 
+                #note-name {
+                    color: $clear_black;
+                }
+
+                #note-kw {
+                    color: $clear_black;
+                }
+
                 span {
                     width: 100%;
 
@@ -85,13 +93,15 @@
         display: flex;
         flex-direction: column;
         gap: 20px;
-        max-height: 80vh;
+        width: 100%;
         overflow-y: auto;
+        overflow-x: clip;
 
         @media (max-width: $gen_resp) {
             gap: 10px;
             flex-direction: row;
-            overflow-y: none;
+            overflow-y: clip;
+            overflow-x: auto;
         }
 
         #notes-actions {
@@ -105,28 +115,54 @@
             }
         }
 
-        #notes-history-notes {
+        #notes-history-notes-ipt {
             display: flex;
-            gap: 10px;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 20px;
 
             @media (max-width: $gen_resp) {
-                overflow-x: auto;
-                flex-direction: row;
+                gap: 15px;
             }
 
-            #universal-notes-img {
-                &:hover {
-                    background-size: cover;
-                    background-position: center;
-                    background-repeat: no-repeat;
-                    background-image: url("../../assets/gifs/turn_page.gif");
+            #notes-history-ipt {
+                width: 100%;
+
+                @media (max-width: $gen_resp) {
+                    width: 177px;
+                }
+
+                #ipt-search {
                 }
             }
 
-            .notes-history-note {
-                color: $white;
-                gap: 10px;
+            #notes-history-notes {
                 display: flex;
+                gap: 10px;
+
+                @media (max-width: $gen_resp) {
+                    overflow-x: auto;
+                    flex-direction: row;
+                }
+
+                .universal-notes-img {
+                    span {
+                        font-size: 14px;
+                    }
+
+                    &:hover {
+                        background-size: cover;
+                        background-position: center;
+                        background-repeat: no-repeat;
+                        background-image: url("../../assets/gifs/turn_page.gif");
+                    }
+                }
+
+                .notes-history-note {
+                    color: $white;
+                    gap: 10px;
+                    display: flex;
+                }
             }
         }
     }

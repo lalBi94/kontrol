@@ -26,6 +26,7 @@ import { getUsers } from "../../services/Users";
 import Displayable from "./../../components/Displayable/Displayable";
 import DisplayableAdd from "./../../components/DisplayableAdd/DisplayableAdd";
 import DeleteIcon from "@mui/icons-material/Delete";
+import ChatIcon from "@mui/icons-material/Chat";
 
 export default function Chat() {
     const gate = useGate();
@@ -104,7 +105,6 @@ export default function Chat() {
     useEffect(() => {
         getUsers().then((res) => {
             setUsers(res.data);
-            console.log(res.data);
         });
 
         const last_discussion = localStorage.getItem(
@@ -159,20 +159,16 @@ export default function Chat() {
                     }
                 }
 
-                console.log("Stock of messages:", stock);
-
                 setIsLoadingChat(false);
                 setChat(stock);
                 goBoxScrollDown();
             });
 
             socket.on("kpture.connectedUsers", (users) => {
-                console.log(users);
                 setConnecteds(users);
             });
 
             socket.on("kpture.confirmConnected", (msg) => {
-                console.log(msg);
                 socket.emit("kpture.getConnectedUsers");
             });
 
@@ -350,10 +346,13 @@ export default function Chat() {
                                 id="messagerie-actions-forms"
                                 onSubmit={handleSubmit}
                             >
-                                <FormControl>
+                                <FormControl style={{ width: "100%" }}>
                                     <Input
+                                        startDecorator={
+                                            <ChatIcon fontSize="small" />
+                                        }
                                         id="messagerie-actions-ipt"
-                                        placeholder="Vous"
+                                        placeholder="Votre message"
                                         onChange={handleMessage}
                                         value={message}
                                     />

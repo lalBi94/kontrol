@@ -52,7 +52,6 @@ router.post("/send", multer().any(), (req, res) => {
 router.get("/", multer().any(), authenticateAdmin, (req, res) => {
     try {
         report_services.getReports().then((d) => {
-            console.log(d);
             res.status(200).json(d);
         });
     } catch (err) {

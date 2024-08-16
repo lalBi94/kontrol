@@ -115,7 +115,6 @@ export const GateProvider = ({ children }) => {
                     });
                 } else {
                     setGateData(d.decoded);
-                    console.log(d.decoded);
                     setIsVisible(false);
                     setIsLoading(false);
                 }

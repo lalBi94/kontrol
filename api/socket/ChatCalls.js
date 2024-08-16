@@ -9,17 +9,10 @@ module.exports = (io) => {
         socket.on("kpture.getConnectedUsers", () => {
             hermes.getConnectedUsers().then((res) => {
                 socket.emit("kpture.connectedUsers", res);
-                console.log(res);
             });
         });
 
         socket.on("kpture.deleteDiscussion", (discussionId, discussionName) => {
-            console.log(
-                "Suppression de la discussion ID:",
-                discussionId,
-                discussionName
-            );
-
             if (discussionId) {
                 dbMessage.deleteDiscussion(discussionId, (err) => {
                     if (err) {
@@ -33,12 +26,6 @@ module.exports = (io) => {
                             discussionId,
                             discussionName
                         );
-
-                        console.log(
-                            "Discussion ID",
-                            discussionId,
-                            "supprimée avec succès."
-                        );
                     }
                 });
             } else {
@@ -47,8 +34,6 @@ module.exports = (io) => {
         });
 
         socket.on("kpture.sendPresence", (user) => {
-            console.log(user, " connecté sur le chat.");
-
             if (user) {
                 hermes.addConnected(user, io);
                 socket.emit("kpture.confirmConnected", "Connecté sur le chat");
@@ -56,8 +41,6 @@ module.exports = (io) => {
         });
 
         socket.on("kpture.message", (discussion, message, author, avatar) => {
-            console.log(discussion, message, author, avatar);
-
             dbMessage.insertMessage(
                 discussion,
                 message,
@@ -131,9 +114,7 @@ module.exports = (io) => {
 
         socket.on("kpture.disconnect", (user) => {
             if (user) {
-                hermes.disconnectSomeone(user, io).then(() => {
-                    console.log(user, " déconnecté du chat.");
-                });
+                hermes.disconnectSomeone(user, io).then(() => {});
             }
         });
     });

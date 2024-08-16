@@ -311,7 +311,6 @@ export default function Galery() {
         if (!alb.error) {
             for (let e of alb.albums) {
                 if (e.presentation) {
-                    console.log(e.presentation);
                     try {
                         const query = await getFile(
                             gate.user,
@@ -340,7 +339,6 @@ export default function Galery() {
             }
 
             setGalery(alb.albums);
-            console.log(alb.albums);
             setIsLoading(false);
         }
     };
@@ -397,8 +395,6 @@ export default function Galery() {
 
             setLoadingAdding(false);
         });
-
-        console.log(files);
     };
 
     useEffect(() => {

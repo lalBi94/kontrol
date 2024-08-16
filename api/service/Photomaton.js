@@ -471,12 +471,6 @@ class Photomaton {
                               ]
                             : null;
 
-                    console.log({
-                        dirname: album.name,
-                        size: files.length,
-                        presentation,
-                    });
-
                     stock.push({
                         dirname: album.name,
                         size: files.length,
@@ -573,8 +567,6 @@ class Photomaton {
                         file.originalname
                     );
 
-                    console.log(final_path);
-
                     await fs.rename(optimizedPath, final_path);
                 } else {
                     const final_path = path.join(
@@ -582,7 +574,6 @@ class Photomaton {
                         file.originalname
                     );
 
-                    console.log(file);
                     await fs.rename(file.path, final_path);
                 }
             }

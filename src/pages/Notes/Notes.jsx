@@ -12,7 +12,10 @@ import {
 import ReactQuill from "react-quill";
 import MainLayout from "../../layout/MainLayout";
 import "react-quill/dist/quill.snow.css";
+import SearchIcon from "@mui/icons-material/Search";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
+import StyleIcon from "@mui/icons-material/Style";
+import DriveFileRenameOutlineIcon from "@mui/icons-material/DriveFileRenameOutline";
 import {
     getAllNotesOf,
     getNoteData,
@@ -38,6 +41,33 @@ export default function Notes() {
         moment().valueOf()
     );
     const [notesList, setNotesList] = useState([]);
+    const [currentSearch, setCurrentSearch] = useState("");
+    const [stockOfCurrentSearch, setStockOfCurrentSearch] = useState(null);
+
+    const handleSearch = (e) => {
+        const searchVal = e.target.value.toLowerCase();
+
+        setCurrentSearch(searchVal);
+
+        const searchingTitle = notesList.filter((note) =>
+            note.title.toLowerCase().includes(searchVal)
+        );
+
+        const titleSet = new Set(searchingTitle.map((note) => note.title));
+
+        const searchingKeywords = notesList
+            .filter((note) =>
+                note.keywords.some((key) =>
+                    key.toLowerCase().includes(searchVal)
+                )
+            )
+            .filter((note) => !titleSet.has(note.title));
+
+        const finalResults = [...searchingTitle, ...searchingKeywords];
+
+        console.log(finalResults);
+        setStockOfCurrentSearch(finalResults);
+    };
 
     const handleDeleteNote = (title) => {
         deleteNote(gate.user, title, localStorage.getItem("kpture.token")).then(
@@ -128,22 +158,19 @@ export default function Notes() {
                         const timestamp = parseInt(parts[1], 10);
                         const keywords = parts.slice(2, parts.length);
 
-                        console.log(keywords);
-
                         return { title, timestamp, keywords: keywords };
                     });
 
                     setDataForSecondMind(prepareDataForGraph(feedSecondMind));
-
-                    console.log(prepareDataForGraph(feedSecondMind));
 
                     const notesArray = res.title_list
                         .map((fileName) => {
                             const parts = fileName.split("-");
                             const title = parts[0];
                             const timestamp = parseInt(parts[1], 10);
+                            const keywords = parts.slice(2, parts.length);
 
-                            return { title, timestamp };
+                            return { title, timestamp, keywords };
                         })
                         .sort((a, b) => b.timestamp - a.timestamp);
 
@@ -173,7 +200,6 @@ export default function Notes() {
             localStorage.getItem("kpture.token")
         ).then((res) => {
             if (!res.error) {
-                console.log(newName);
                 handleSelectNote(newName);
                 getNotes();
             }
@@ -279,24 +305,53 @@ export default function Notes() {
 
                     <Divider />
 
-                    <Stack id="notes-history-notes">
-                        {notesList.length > 0
-                            ? notesList.map((note, index) => (
-                                  <Displayable
-                                      handler={() => {
-                                          handleSelectNote(
-                                              `${note.title}-${note.timestamp}-`
-                                          );
-                                      }}
-                                      tooltip={`"${note.title}" du ${moment(
-                                          note.timestamp
-                                      ).format("DD/MM/YYYY à HH:mm")}`}
-                                      key={index}
-                                      text={note.title}
-                                      id="universal-notes-img"
-                                  />
-                              ))
-                            : null}
+                    <Stack id="notes-history-notes-ipt">
+                        <Stack id="notes-history-ipt">
+                            <Input
+                                startDecorator={<SearchIcon fontSize="small" />}
+                                placeholder="Recherche note"
+                                value={currentSearch}
+                                id="ipt-search"
+                                type="search"
+                                onChange={handleSearch}
+                            />
+                        </Stack>
+
+                        <Stack id="notes-history-notes">
+                            {currentSearch.length > 0
+                                ? stockOfCurrentSearch.map((note, index) => (
+                                      <Displayable
+                                          handler={() => {
+                                              handleSelectNote(
+                                                  `${note.title}-${note.timestamp}-`
+                                              );
+                                          }}
+                                          tooltip={`"${note.title}" du ${moment(
+                                              note.timestamp
+                                          ).format("DD/MM/YYYY à HH:mm")}`}
+                                          key={index}
+                                          text={note.title}
+                                          className="universal-notes-img"
+                                      />
+                                  ))
+                                : notesList.length > 0
+                                ? notesList.map((note, index) => (
+                                      <Displayable
+                                          handler={() => {
+                                              handleSelectNote(
+                                                  `${note.title}-${note.timestamp}-`
+                                              );
+                                          }}
+                                          tooltip={`"${note.title}" du ${moment(
+                                              note.timestamp
+                                          ).format("DD/MM/YYYY à HH:mm")}`}
+                                          key={index}
+                                          text={note.title}
+                                          className="universal-notes-img"
+                                      />
+                                  ))
+                                : null}
+                        </Stack>
                     </Stack>
                 </Stack>
 
@@ -305,38 +360,46 @@ export default function Notes() {
                 <Stack id="note-view">
                     <Box id="note-view-actions">
                         <Box id="note-view-actions-ipt">
-                            <Typography style={{ color: "white" }} level="h4">
-                                Nom de la note{" "}
-                                {!isNoteSelected
-                                    ? `(${currentTitleNote.length} sur 30
+                            <Typography id="note-name" level="h4">
+                                <span>
+                                    Nom de la note{" "}
+                                    {!isNoteSelected
+                                        ? `(${currentTitleNote.length} sur 30
                                 caractères)`
-                                    : ``}
+                                        : ``}
+                                </span>
                             </Typography>
 
                             <Input
+                                startDecorator={
+                                    <DriveFileRenameOutlineIcon fontSize="small" />
+                                }
                                 value={currentTitleNote}
                                 onChange={handleUpTitle}
                                 placeholder="Ex: Rêve de cette nuit"
                                 disabled={isNoteSelected}
                             />
 
-                            <Typography style={{ color: "white" }} level="h4">
-                                Mots-clés (
-                                {currentKeywords.trim().split(",").length} sur 4
-                                mots
-                                {currentKeywords.trim().split(",").length >
-                                4 ? (
-                                    <Typography color="danger">
-                                        {" "}
-                                        DECONSEILLÉ !!
-                                    </Typography>
-                                ) : (
-                                    ""
-                                )}
-                                )
+                            <Typography id="note-kw" level="h4">
+                                <span>
+                                    Mots-clés (
+                                    {currentKeywords.trim().split(",").length}{" "}
+                                    sur 4 mots
+                                    {currentKeywords.trim().split(",").length >
+                                    4 ? (
+                                        <Typography color="danger">
+                                            {" "}
+                                            DECONSEILLÉ !!
+                                        </Typography>
+                                    ) : (
+                                        ""
+                                    )}
+                                    )
+                                </span>
                             </Typography>
 
                             <Input
+                                startDecorator={<StyleIcon fontSize="small" />}
                                 value={currentKeywords}
                                 onChange={handleUpKeyword}
                                 placeholder="Saisir les mots-clés, séparés par des virgules (ex: réussite, rêve)"

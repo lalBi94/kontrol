@@ -32,8 +32,6 @@ const authenticateAdmin = async (req, res, next) => {
 
     const { error, decoded } = await users.decodeToken(token);
 
-    console.log(decoded);
-
     if (error) {
         return res.status(403).json({ error: "Token invalide ou expiré." });
     } else if (decoded.level > 0) {
