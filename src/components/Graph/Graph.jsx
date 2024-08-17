@@ -17,14 +17,21 @@ export default function Graph({ nodes, links }) {
             .attr("height", height)
             .style("border", "1px solid black");
 
+        const container = svg.append("g"); // Un groupe pour contenir tout
+
         const zoom = d3
             .zoom()
-            .scaleExtent([0.5, 3])
+            .scaleExtent([0.1, 10]) // Limiter le zoom pour ne pas zoomer trop loin
             .on("zoom", (event) => {
-                svg.selectAll("g").attr("transform", event.transform);
+                container.attr("transform", event.transform);
             });
 
-        svg.call(zoom);
+        svg.call(zoom).on("dblclick.zoom", null); // Désactiver le zoom au double clic
+
+        svg.call(
+            zoom.transform,
+            d3.zoomIdentity.translate(width / 2, height / 2).scale(1)
+        );
 
         const tooltip = d3
             .select("body")
@@ -32,7 +39,7 @@ export default function Graph({ nodes, links }) {
             .attr("class", "tooltip")
             .style("opacity", 0);
 
-        svg.selectAll("*").remove();
+        container.selectAll("*").remove();
 
         const simulation = d3
             .forceSimulation(nodes)
@@ -41,15 +48,14 @@ export default function Graph({ nodes, links }) {
                 d3
                     .forceLink(links)
                     .id((d) => d.id)
-                    .distance(100)
+                    .distance(120)
             )
-            .force("charge", d3.forceManyBody().strength(-200))
-            .force("center", d3.forceCenter(width / 2, height / 2))
-            .force("collision", d3.forceCollide().radius(30))
-            .force("x", d3.forceX().strength(0.1))
-            .force("y", d3.forceY().strength(0.1));
+            .force("charge", d3.forceManyBody().strength(-300))
+            .force("collision", d3.forceCollide().radius(25))
+            .force("x", d3.forceX().strength(0.05))
+            .force("y", d3.forceY().strength(0.05));
 
-        const link = svg
+        const link = container
             .append("g")
             .attr("class", "links")
             .selectAll("line")
@@ -59,7 +65,7 @@ export default function Graph({ nodes, links }) {
             .attr("stroke-width", (d) => Math.sqrt(d.value))
             .attr("stroke", "#ffffff");
 
-        const node = svg
+        const node = container
             .append("g")
             .attr("class", "nodes")
             .selectAll("g")
@@ -137,8 +143,10 @@ export default function Graph({ nodes, links }) {
 
         function dragended(event, d) {
             if (!event.active) simulation.alphaTarget(0);
-            d.fx = null;
-            d.fy = null;
+            setTimeout(() => {
+                d.fx = null;
+                d.fy = null;
+            }, 100);
         }
 
         function truncateText(text, maxLength) {

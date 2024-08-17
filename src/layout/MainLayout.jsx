@@ -6,7 +6,7 @@ export default function MainLayout({ children }) {
         <>
             <NavBar />
 
-            <main>{children}</main>
+            <main style={{ marginTop: "30px" }}>{children}</main>
 
             <Pegaze />
         </>

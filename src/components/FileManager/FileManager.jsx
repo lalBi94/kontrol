@@ -355,11 +355,12 @@ export default function FileManager({ targetDir = "" }) {
     };
 
     const handleCreateDir = () => {
-        setIsLoadingMkdir(true);
         const nameDir = prompt("Nom du dossier");
-        setFilesLoading(true);
 
         if (nameDir || nameDir.length > 0) {
+            setIsLoadingMkdir(true);
+            setFilesLoading(true);
+
             createDir(
                 gate.user,
                 nameDir,
@@ -370,8 +371,6 @@ export default function FileManager({ targetDir = "" }) {
                 setFilesLoading(false);
                 setIsLoadingMkdir(false);
             });
-        } else {
-            setIsLoadingMkdir(false);
         }
     };
 

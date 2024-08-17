@@ -623,9 +623,8 @@ export default function Galery() {
                                             {v.type.split("/")[0] ===
                                             "video" ? (
                                                 <video
+                                                    loading="lazy"
                                                     controls
-                                                    autoplay="false"
-                                                    playsInline
                                                     className="album-selected-files"
                                                     src={`data:${v.type};base64,${v.b64}`}
                                                 />

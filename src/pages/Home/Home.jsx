@@ -62,7 +62,10 @@ export default function Home() {
                     "top"
                 );
             } else {
-                retreiveWebsiteFav(gate.user).then((res) => {
+                retreiveWebsiteFav(
+                    gate.user,
+                    localStorage.getItem("kpture.token")
+                ).then((res) => {
                     setWFList(res.website_fav);
                     setWFLoading(false);
                 });
@@ -212,8 +215,6 @@ export default function Home() {
             </Modal>
 
             <Stack id="home-container">
-                <Divider />
-
                 <Stack id="home-categories">
                     <Typography
                         className=""

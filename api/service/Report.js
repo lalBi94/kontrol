@@ -31,6 +31,24 @@ class Report {
         return data;
     }
 
+    async deleteReport(queue) {
+        try {
+            const the_report = path.join(this.report_data, `${queue}.txt`);
+
+            try {
+                await fs.access(the_report);
+                await fs.rm(the_report);
+
+                return { error: null };
+            } catch (err) {
+                return { error: "Impossible de trouver le report :(" };
+            }
+        } catch (err) {
+            console.error(err);
+            return { error: "Impossible de supprimer un report :(" };
+        }
+    }
+
     async getReports() {
         try {
             const reports = await fs.readdir(this.report_data);
@@ -62,17 +80,21 @@ class Report {
      */
     async publishReport(message, from, contact, nature) {
         try {
+            console.log(message, from, contact, nature);
             const schematic = new ReportSchema(message, from, contact, nature);
 
             if (!schematic.getObject()) {
                 return { error: "Impossible de publier le report." };
             }
 
-            const n_report = (await fs.readdir(this.report_data)).length;
+            const n_report = await fs.readdir(this.report_data);
+            const position = Math.max(
+                ...n_report.map((e) => parseInt(e.slice(0, -4), 10))
+            );
 
             const report_target = path.join(
                 this.report_data,
-                `${n_report + 1}.txt`
+                `${position + 1}.txt`
             );
 
             const format = `-\nDe\t:\t${from}\n-\nObjet\t:\t${nature}\n-\nMessage\t:\n${message}\n-\nContact\t:\t${contact}`;

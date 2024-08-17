@@ -62,4 +62,25 @@ router.get("/", multer().any(), authenticateAdmin, (req, res) => {
     }
 });
 
+/**
+ * Endpoint pour supprimer un rapport.
+ * @route GET /report/delete
+ * @returns {Promise<{error: string|null, ...}>} Les reports.
+ * @throws {404 | 500} Erreur lors de la recuperation des reports.
+ */
+router.post("/deleteReport", multer().any(), authenticateAdmin, (req, res) => {
+    try {
+        const { queue } = req.body;
+
+        report_services.deleteReport(queue).then((d) => {
+            res.status(d.error ? 404 : 200).json(d);
+        });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({
+            error: "Erreur lors de la recuperation des reports.",
+        });
+    }
+});
+
 module.exports = router;

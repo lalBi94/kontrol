@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useGate } from "./../../hooks/useGate";
 import "./KptureReport.scss";
-import { getReports } from "../../services/Report";
+import { getReports, deleteReport } from "../../services/Report";
 import MainLayout from "../../layout/MainLayout";
 import { Typography, Modal, ModalDialog, Stack, Button } from "@mui/joy";
 import Displayable from "./../../components/Displayable/Displayable";
@@ -12,6 +12,20 @@ export default function KptureReport() {
     const [reports, setReports] = useState([]);
     const [inConsulting, setInConsulting] = useState(false);
     const [toConsult, setToConsult] = useState(null);
+
+    const handleDeleteReport = (queue) => {
+        deleteReport(queue, localStorage.getItem("kpture.token")).then(
+            (res) => {
+                if (!res.error) {
+                    const without_him = reports.filter(
+                        (el) => el.queue !== queue
+                    );
+                    setReports(without_him);
+                    handleConsultClose();
+                }
+            }
+        );
+    };
 
     const handleConsultClose = () => {
         setInConsulting(false);
@@ -79,21 +93,21 @@ export default function KptureReport() {
                     <ModalDialog layout="center" id="modal-consult">
                         {toConsult ? (
                             // Version amélioré de : https://codepen.io/lalBi94/pen/jOXNWbw (en hommage a mon ancien design de lettre qui n'a pas percé)
-                            <Stack class="card">
-                                <Stack class="card-y">
+                            <Stack className="card">
+                                <Stack className="card-y">
                                     <img
                                         loading="lazy"
                                         src={KontroLogo}
                                         alt="Logo de kontrol"
-                                        class="card-y-img"
+                                        className="card-y-img"
                                     />
 
-                                    <Stack class="card-y-corp">
-                                        <span class="card-y-corp-text">
+                                    <Stack className="card-y-corp">
+                                        <span className="card-y-corp-text">
                                             <b>Objet</b> ——— {toConsult.objet}
                                         </span>
 
-                                        <span class="card-y-corp-text">
+                                        <span className="card-y-corp-text">
                                             <span>
                                                 <b>Utilisateur</b> —{" "}
                                             </span>
@@ -103,18 +117,19 @@ export default function KptureReport() {
                                             </span>
                                         </span>
 
-                                        <span class="card-y-corp-text">
+                                        <span className="card-y-corp-text">
                                             <b>Contact</b> ——{" "}
                                             {toConsult.contact}
                                         </span>
                                     </Stack>
 
-                                    <Stack class="card-y-infos">
+                                    <Stack className="card-y-infos">
                                         {toConsult.message.map((mess, j) => (
-                                            <span class="card-y-infos-l">
-                                                <Typography key={j}>
-                                                    {mess}
-                                                </Typography>
+                                            <span
+                                                key={j}
+                                                className="card-y-infos-l"
+                                            >
+                                                <Typography>{mess}</Typography>
                                             </span>
                                         ))}
                                     </Stack>
@@ -127,7 +142,14 @@ export default function KptureReport() {
                                     >
                                         Retour
                                     </Button>
-                                    <Button color="danger">Supprimer</Button>
+                                    <Button
+                                        onClick={() => {
+                                            handleDeleteReport(toConsult.queue);
+                                        }}
+                                        color="danger"
+                                    >
+                                        Supprimer
+                                    </Button>
                                 </Stack>
                             </Stack>
                         ) : null}
