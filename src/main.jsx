@@ -12,6 +12,7 @@ import DomainGestion from "./pages/DomainGestion/DomainGestion";
 import Notes from "./pages/Notes/Notes";
 import KptureReport from "./pages/KptureReport/KptureReport";
 import { ThemeProvider } from "./context/ThemeContext/ThemeContext";
+import KptureUsers from "./pages/KptureUsers/KtpureUsers";
 
 const router = createBrowserRouter([
     { path: "*", element: <Home /> },
@@ -35,6 +36,7 @@ const router = createBrowserRouter([
 
     { path: "/kptureadmin", element: <DomainGestion /> },
     { path: "/kpturereport", element: <KptureReport /> },
+    { path: "/kptureusers", element: <KptureUsers /> },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(

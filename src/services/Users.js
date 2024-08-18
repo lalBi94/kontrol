@@ -12,6 +12,28 @@ export const getUsers = async () => {
     }
 };
 
+export const registerSomeone = async (user, level, img, password, token) => {
+    try {
+        const data = new FormData();
+        data.append("user", user);
+        data.append("level", level);
+        data.append("img", img);
+        data.append("password", password);
+
+        const query = await axios.post(`/users/registerSomeone`, data, {
+            headers: {
+                "Content-Type": "multipart/form-data",
+                Authorization: `Bearer ${token}`,
+            },
+        });
+
+        return query.data;
+    } catch (error) {
+        console.error("Erreur lors de la recuperation via token :", error);
+        throw error;
+    }
+};
+
 export const getSessionOf = async (token) => {
     try {
         const data = new FormData();

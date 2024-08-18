@@ -15,6 +15,7 @@ import {
     Textarea,
     FormLabel,
 } from "@mui/joy";
+import DarkModeIcon from "@mui/icons-material/DarkMode";
 import StarIcon from "@mui/icons-material/Star";
 import { useGate } from "../../hooks/useGate";
 import { notification } from "antd";
@@ -247,7 +248,7 @@ export default function NavBar() {
                         onClick={null}
                         className="nav-action"
                     >
-                        <QuestionMarkIcon />
+                        <DarkModeIcon />
                     </Button>
                 </Tooltip>
 

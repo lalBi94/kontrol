@@ -27,8 +27,7 @@ export default function DomainGestion() {
 
                 <Stack className="domain-gestion-choice">
                     <Link
-                        disabled
-                        href="/kptureuser"
+                        href="/kptureusers"
                         className="domain-gestion-choice-link"
                     >
                         <SettingsCard

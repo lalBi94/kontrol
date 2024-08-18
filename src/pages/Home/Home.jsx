@@ -273,13 +273,13 @@ export default function Home() {
                             openInAnotherWindow={false}
                         />
 
-                        <Displayable
+                        {/* <Displayable
                             id="calendar"
                             link={"/calendar"}
                             text={"CALENDRIER"}
                             tooltip="Calendrier"
                             openInAnotherWindow={false}
-                        />
+                        /> */}
                     </Stack>
                 </Stack>
 

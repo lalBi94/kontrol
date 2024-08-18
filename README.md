@@ -11,6 +11,9 @@ Kontrol est une application web auto-hébergeable conçue pour centraliser les o
     -   [Installation du projet 🏗️](#installation-du-projet-️)
         -   [Installation manuelle 🔧](#installation-manuelle-)
         -   [Installation semi-automatique ⚙️](#installation-semi-automatique-️)
+    -   [Post Installation](#post-installation)
+        -   [Navigateur to VPS](#navigateur-to-vps)
+        -   [Navigateur to Réseau local](#navigateur-to-réseau-local)
     -   [Informations importantes](#informations-importantes)
     -   [Contribuer 🤝](#contribuer-)
     -   [Licence 📜](#licence-)
@@ -119,6 +122,18 @@ Kontrol est une application web auto-hébergeable conçue pour centraliser les o
 
 4. Exposez le port avec `ufw` et installez NGINX sur votre machine (et configurez-le).
 
+## Post Installation
+
+Demander a vos utilisateur de se connecter a votre server:port.
+
+### Navigateur to VPS
+
+Si votre site est hebergé sur le port 4000 de votre vps https://203.0.113.5:4000/.
+
+### Navigateur to Réseau local
+
+Si il est sur le port 80 d'un serveur local, http://192.168.1.21/.
+
 ## Informations importantes
 
 -   Vous devez configurer les variables d'environnement dans les fichiers `.env` et `api/.env` à partir des fichiers `.env.example`.
@@ -132,7 +147,7 @@ Les contributions sont les bienvenues ! Forkez le dépôt et soumettez une pull 
 
 En tant que contributeur principal, je m'assure de contrôler les commits avant leur intégration. Je prendrai également l'initiative de pusher directement du code sur la branche principale lorsque cela sera nécessaire. Merci pour votre compréhension et votre soutien !
 
-Dans la doc POSTMAN, j'ai oublié de mentionner si une route a besoin d'une autorisation ou non. Sachez que : `pandora`, `webfav`,`report`,`photomaton`,`nwrite` nécessite un token lambda. Et que : `GET /report/`, `POST /users/register` nécessite un token admin.
+Dans la doc POSTMAN, j'ai oublié de mentionner si une route a besoin d'une autorisation ou non. Sachez que : `pandora`, `webfav`,`report`,`photomaton`,`nwrite` nécessite un token lambda. Et que : `GET /report/deleteReport`, `GET /report/`, `POST /users/register` nécessite un token admin.
 
 ## Licence 📜
 

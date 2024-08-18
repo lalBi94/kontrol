@@ -1,0 +1,27 @@
+@import "../../index.scss";
+
+#kpture-container {
+    display: flex;
+    gap: 40px;
+
+    .kpture-user-form-container {
+        border-radius: 8px;
+        border: 1px solid $light_black;
+        padding: 30px;
+
+        &:hover {
+            border: 1px solid $white;
+            cursor: pointer;
+        }
+
+        .kpture-user-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+
+            .kpture-user-form-text {
+                color: $clear_black;
+            }
+        }
+    }
+}

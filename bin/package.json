@@ -1,0 +1,41 @@
+{
+  "name": "Kontrol",
+  "version": "1.0.0",
+  "description": "Executable de Kontrol",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build:mac": "electron-builder --mac",
+    "build:win": "electron-builder --win",
+    "build:all": "electron-builder --mac --win"
+  },
+  "keywords": [],
+  "author": "Bilal Boudjemline",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^31.4.0",
+    "electron-builder": "^24.5.1"
+  },
+  "build": {
+    "productName": "Kontrol",
+    "appId": "com.Kontrol.app",
+    "mac": {
+      "category": "public.app-category.utilities",
+      "target": "dmg",
+      "icon": "build/favicon.icns"
+    },
+    "win": {
+      "target": "nsis",
+      "icon": "build/favicon.ico",
+      "artifactName": "Kontrol.setup.${version}.${ext}"
+    },
+    "files": [
+      "main.js",
+      "node_modules/**/*",
+      "build/**"
+    ],
+    "directories": {
+      "buildResources": "build"
+    }
+  }
+}
