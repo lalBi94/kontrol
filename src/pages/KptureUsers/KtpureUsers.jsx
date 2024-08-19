@@ -16,7 +16,7 @@ import { useState, useEffect } from "react";
 import { Avatar } from "antd";
 import PersonIcon from "@mui/icons-material/Person";
 import KeyIcon from "@mui/icons-material/Key";
-import { getUsers, registerSomeone } from "../../services/Users";
+import { getUsers, massiveDelete, registerSomeone } from "../../services/Users";
 import { notification } from "antd";
 
 export default function KptureUsers() {
@@ -29,6 +29,50 @@ export default function KptureUsers() {
     const [user, setUser] = useState("");
     const [loadingCreate, setLoadingCreate] = useState(false);
     const [users, setUsers] = useState([]);
+    const [toSupress, setToSupress] = useState([]);
+    const [loadingDelete, setLoadingDelete] = useState(false);
+
+    const handleSupress = (name) => {
+        if (toSupress.includes(name)) {
+            setToSupress(toSupress.filter((e) => e !== name));
+        } else {
+            setToSupress([...toSupress, name]);
+        }
+    };
+
+    const handleFire = () => {
+        setLoadingDelete(true);
+
+        massiveDelete(
+            JSON.stringify(toSupress),
+            localStorage.getItem("kpture.token")
+        ).then((res) => {
+            if (!res.error) {
+                console.log(res);
+                setToSupress([]);
+                openNotification(
+                    "Success",
+                    "Utilisateur(s) supprimé(s) avec succes !",
+                    true,
+                    true,
+                    false,
+                    "top"
+                );
+                handleUsers();
+            } else {
+                openNotification(
+                    "Erreur",
+                    "Une erreur coté serveur est survenue !",
+                    true,
+                    true,
+                    false,
+                    "top"
+                );
+            }
+
+            setLoadingDelete(false);
+        });
+    };
 
     const handleUsers = () => {
         getUsers().then((res) => {
@@ -129,7 +173,7 @@ export default function KptureUsers() {
                 </Stack>
 
                 {selectedCat === "create_user" ? (
-                    <Stack className="kpture-user-form-container">
+                    <Stack id="kpture-user-form-container">
                         <form className="kpture-user-form">
                             <FormControl>
                                 <FormLabel className="kpture-user-form-text">
@@ -229,20 +273,43 @@ export default function KptureUsers() {
                         </form>
                     </Stack>
                 ) : selectedCat === "delete_users" ? (
-                    <Stack>
-                        {users.length > 0
-                            ? users.map((v, i) => (
-                                  <Stack key={i}>
-                                      <Avatar src={v.img} />
+                    <Stack id="ktpure-users-delete-container">
+                        <Stack id="ktpure-users-delete-actions">
+                            <Button
+                                disabled={toSupress.length === 0}
+                                color="danger"
+                                onClick={handleFire}
+                                loading={loadingDelete}
+                            >
+                                Supprimer définitivement ({toSupress.length})
+                            </Button>
+                        </Stack>
 
-                                      <Typography>
-                                          <span className="poppins-medium-italic">
-                                              {v.user}
-                                          </span>
-                                      </Typography>
-                                  </Stack>
-                              ))
-                            : null}
+                        <Stack id="ktpure-users-list">
+                            {users.length > 0
+                                ? users.map((v, i) => (
+                                      <Stack
+                                          className={`ktpure-users-delete ${
+                                              toSupress.includes(v.user)
+                                                  ? "is-selected"
+                                                  : ""
+                                          }`}
+                                          key={i}
+                                          onClick={() => {
+                                              handleSupress(v.user);
+                                          }}
+                                      >
+                                          <Avatar src={v.img} />
+
+                                          <Typography>
+                                              <span className="shantell-sans-regular">
+                                                  {v.user}
+                                              </span>
+                                          </Typography>
+                                      </Stack>
+                                  ))
+                                : null}
+                        </Stack>
                     </Stack>
                 ) : null}
             </Box>

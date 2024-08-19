@@ -34,6 +34,25 @@ export const registerSomeone = async (user, level, img, password, token) => {
     }
 };
 
+export const massiveDelete = async (list, token) => {
+    try {
+        const data = new FormData();
+        data.append("list", list);
+
+        const query = await axios.post(`/users/massiveDelete`, data, {
+            headers: {
+                "Content-Type": "multipart/form-data",
+                Authorization: `Bearer ${token}`,
+            },
+        });
+
+        return query.data;
+    } catch (error) {
+        console.error("Erreur lors de la recuperation via token :", error);
+        throw error;
+    }
+};
+
 export const getSessionOf = async (token) => {
     try {
         const data = new FormData();

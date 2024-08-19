@@ -24,6 +24,30 @@ router.get("/", async (req, res) => {
 });
 
 /**
+ * Endpoint pour supprimer un utilisateur.
+ * @route POST /users/massiveDelete
+ * @returns {Promise<Array<{id: string, name: string, email: string, ...}>>} Liste des utilisateurs.
+ * @throws {500} Erreur lors de la récupération des utilisateurs.
+ */
+router.post(
+    "/massiveDelete",
+    authenticateAdmin,
+    multer().any(),
+    async (req, res) => {
+        try {
+            const { list } = req.body;
+            const d = await users_services.massiveDelete(JSON.parse(list));
+            res.status(200).json(d);
+        } catch (err) {
+            console.error(err);
+            res.status(500).json({
+                error: "Erreur lors de la décodification du token.",
+            });
+        }
+    }
+);
+
+/**
  * Endpoint pour obtenir les informations d'une session à partir d'un token.
  * @route POST /users/getSessionOf
  * @param {string} token - Token de session.

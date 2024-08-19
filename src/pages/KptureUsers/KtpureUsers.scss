@@ -4,7 +4,53 @@
     display: flex;
     gap: 40px;
 
-    .kpture-user-form-container {
+    #ktpure-users-delete-container {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        gap: 10px;
+        cursor: pointer;
+
+        #ktpure-users-delete-actions {
+            button {
+            }
+        }
+
+        #ktpure-users-list {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            gap: 10px;
+
+            cursor: pointer;
+            .ktpure-users-delete {
+                border-radius: 5px;
+                background: $light_black;
+                width: 100px;
+                height: 100px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                border: 2px dashed transparent;
+
+                span {
+                    color: $white;
+                }
+
+                &:hover {
+                    border: 2px dashed red;
+                    transform: scale(1.03);
+                    transition: 0.2s;
+                }
+            }
+
+            .is-selected {
+                border: 2px dashed red;
+            }
+        }
+    }
+
+    #kpture-user-form-container {
         border-radius: 8px;
         border: 1px solid $light_black;
         padding: 30px;

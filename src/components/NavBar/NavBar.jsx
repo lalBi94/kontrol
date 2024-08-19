@@ -242,7 +242,7 @@ export default function NavBar() {
             </Tooltip>
 
             <Stack id="nav-actions">
-                <Tooltip title="Deconnexion">
+                <Tooltip title="Mode Sombre activé">
                     <Button
                         color="neutral"
                         onClick={null}

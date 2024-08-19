@@ -1,9 +1,13 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import * as d3 from "d3";
 import "./Graph.scss";
+import { Button, Stack, Chip } from "@mui/joy";
+import { Typography } from "antd";
+import { Tag } from "antd";
 
-export default function Graph({ nodes, links }) {
+export default function Graph({ nodes, links, leave }) {
     const svgRef = useRef(null);
+    const [popupData, setPopupData] = useState(null);
 
     useEffect(() => {
         if (!svgRef.current) return;
@@ -17,17 +21,16 @@ export default function Graph({ nodes, links }) {
             .attr("height", height)
             .style("border", "1px solid black");
 
-        const container = svg.append("g"); // Un groupe pour contenir tout
+        const container = svg.append("g");
 
         const zoom = d3
             .zoom()
-            .scaleExtent([0.1, 10]) // Limiter le zoom pour ne pas zoomer trop loin
+            .scaleExtent([0.1, 10])
             .on("zoom", (event) => {
                 container.attr("transform", event.transform);
             });
 
-        svg.call(zoom).on("dblclick.zoom", null); // Désactiver le zoom au double clic
-
+        svg.call(zoom).on("dblclick.zoom", null);
         svg.call(
             zoom.transform,
             d3.zoomIdentity.translate(width / 2, height / 2).scale(1)
@@ -94,29 +97,42 @@ export default function Graph({ nodes, links }) {
             })
             .on("mouseout", function () {
                 tooltip.transition().duration(500).style("opacity", 0);
+            })
+            .on("click", function (event, d) {
+                // Positionner le popup
+                const [x, y] = d3.pointer(event);
+                setPopupData({
+                    x,
+                    y,
+                    data: d,
+                });
+                event.stopPropagation(); // Stopper la propagation pour empêcher la fermeture immédiate
             });
 
+        // Ajout des étiquettes sur fond blanc en dessous des sommets
         node.each(function (d) {
-            const group = d3.select(this);
-
-            const text = group
+            const title =
+                d.title.length > 15 ? d.title.substring(0, 6) + "..." : d.title;
+            const textElement = d3
+                .select(this)
                 .append("text")
                 .attr("x", 0)
-                .attr("y", 20)
+                .attr("y", 28)
                 .attr("text-anchor", "middle")
-                .attr("fill", "white")
-                .style("font-size", "10px")
-                .text(truncateText(d.title, 10));
+                .attr("fill", "black")
+                .style("font-size", "12px")
+                .text(title);
 
-            const bbox = text.node().getBBox();
-
-            group
+            const bbox = textElement.node().getBBox();
+            d3.select(this)
                 .insert("rect", "text")
                 .attr("x", bbox.x - 2)
                 .attr("y", bbox.y - 2)
                 .attr("width", bbox.width + 4)
                 .attr("height", bbox.height + 4)
-                .attr("fill", "black");
+                .attr("fill", "white")
+                .attr("stroke", "black")
+                .attr("stroke-width", 1);
         });
 
         simulation.nodes(nodes).on("tick", () => {
@@ -143,24 +159,62 @@ export default function Graph({ nodes, links }) {
 
         function dragended(event, d) {
             if (!event.active) simulation.alphaTarget(0);
-            setTimeout(() => {
-                d.fx = null;
-                d.fy = null;
-            }, 100);
-        }
-
-        function truncateText(text, maxLength) {
-            return text.length > maxLength
-                ? text.slice(0, maxLength) + "..."
-                : text;
+            d.fx = null;
+            d.fy = null;
         }
     }, [nodes, links]);
 
     return (
-        <svg
-            id="mind"
-            ref={svgRef}
-            style={{ width: "100%", height: "100%" }}
-        ></svg>
+        <div>
+            <svg
+                id="mind"
+                ref={svgRef}
+                style={{ width: "100%", height: "100%" }}
+            ></svg>
+
+            {popupData && (
+                <div className="popup">
+                    <Typography level="p">
+                        <span style={{ color: "white" }}>
+                            <strong>Nom —</strong> {popupData.data.title}
+                        </span>
+                    </Typography>
+
+                    {popupData.data.keywords.length > 0 ? (
+                        <Stack className="popup-keywords">
+                            {popupData.data.keywords.map((v, i) => (
+                                <Tag
+                                    className="popup-keywords-tag"
+                                    color="green"
+                                >
+                                    #{v}
+                                </Tag>
+                            ))}
+                        </Stack>
+                    ) : null}
+
+                    <Button
+                        onClick={() => {
+                            setPopupData(null);
+                            leave(popupData.data.title);
+                        }}
+                        style={{ zIndex: "999" }}
+                    >
+                        Voir la note
+                    </Button>
+
+                    <Button
+                        onClick={() => {
+                            console.log(popupData.data);
+                            setPopupData(null);
+                        }}
+                        color="danger"
+                        style={{ zIndex: "999" }}
+                    >
+                        Retour
+                    </Button>
+                </div>
+            )}
+        </div>
     );
 }

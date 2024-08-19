@@ -1,5 +1,32 @@
 @import "../../index.scss";
 
+.popup {
+    position: absolute;
+    max-width: 250px;
+    max-height: 200px;
+    border-radius: 10px;
+    border-top-right-radius: 0;
+    border-bottom-left-radius: 0;
+    aspect-ratio: 1/4;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+    background: $black;
+    border: 5px dashed $white;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+
+    .popup-keywords {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .popup-keywords-tag {
+    }
+}
+
 #mind {
     width: 100%;
     background: $black;

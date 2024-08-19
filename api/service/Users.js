@@ -3,6 +3,7 @@ const fs = require("fs/promises");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const Someone = require("../types/SomeoneSchema");
+const { cp } = require("fs");
 require("dotenv").config({ path: path.join(__dirname, "../.env") });
 
 /**
@@ -251,6 +252,34 @@ class Users {
             return true;
         } catch {
             return false;
+        }
+    }
+
+    /**
+     * Supprimer massivement des utilisateurs
+     * @param {Array<String>} list Le chemin du fichier
+     * @return {Promise<{error: null | string}>}
+     */
+    async massiveDelete(list) {
+        try {
+            console.log(list);
+            for (let el of list) {
+                const path_to_target = path.join(this.users_target, el);
+
+                try {
+                    await fs.access(path_to_target);
+                    await fs.rm(path_to_target, { recursive: true });
+                } catch (err) {
+                    console.error(err);
+                }
+            }
+
+            return { error: null };
+        } catch (err) {
+            console.error(err);
+            return {
+                error: "Erreur lors de la suppression massive des utilisateurs.",
+            };
         }
     }
 }

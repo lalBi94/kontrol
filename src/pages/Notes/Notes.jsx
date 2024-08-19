@@ -258,6 +258,11 @@ export default function Notes() {
         setInModalMind(false);
     };
 
+    const handleLeaveToNote = (note) => {
+        handleSelectNote(note);
+        handleCloseModal();
+    };
+
     const handleOpenModal = () => {
         setInModalMind(true);
     };
@@ -276,6 +281,7 @@ export default function Notes() {
 
                     {dataForSecondMind ? (
                         <Graph
+                            leave={handleLeaveToNote}
                             links={dataForSecondMind.links}
                             nodes={dataForSecondMind.nodes}
                         />
