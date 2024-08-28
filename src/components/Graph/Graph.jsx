@@ -4,6 +4,7 @@ import "./Graph.scss";
 import { Button, Stack, Chip } from "@mui/joy";
 import { Typography } from "antd";
 import { Tag } from "antd";
+import moment from "moment";
 
 export default function Graph({ nodes, links, leave }) {
     const svgRef = useRef(null);
@@ -101,6 +102,7 @@ export default function Graph({ nodes, links, leave }) {
             .on("click", function (event, d) {
                 // Positionner le popup
                 const [x, y] = d3.pointer(event);
+                console.log(d);
                 setPopupData({
                     x,
                     y,
@@ -176,7 +178,18 @@ export default function Graph({ nodes, links, leave }) {
                 <div className="popup">
                     <Typography level="p">
                         <span style={{ color: "white" }}>
-                            <strong>Nom —</strong> {popupData.data.title}
+                            <strong>Nom — </strong> {popupData.data.title}
+                        </span>
+                    </Typography>
+
+                    <Typography level="p">
+                        <span style={{ color: "white" }}>
+                            <strong>Date — </strong>{" "}
+                            {`${moment(popupData.data.timestamp).format(
+                                "DD/MM/YYYY"
+                            )} a ${moment(popupData.data.timestamp).format(
+                                "HH:m:s"
+                            )}`}
                         </span>
                     </Typography>
 
@@ -184,6 +197,7 @@ export default function Graph({ nodes, links, leave }) {
                         <Stack className="popup-keywords">
                             {popupData.data.keywords.map((v, i) => (
                                 <Tag
+                                    key={i}
                                     className="popup-keywords-tag"
                                     color="green"
                                 >

@@ -125,6 +125,7 @@ export default function Notes() {
             id: index,
             title: item.title,
             keywords: item.keywords,
+            timestamp: parseInt(item.timestamp, 10),
         }));
 
         const links = [];
