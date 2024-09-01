@@ -2,6 +2,9 @@ import "./Displayable.scss";
 import { Stack, Tooltip, Typography } from "@mui/joy";
 import "../../index.scss";
 import selecting from "../../assets/audio/selecting.mp3";
+import { motion } from "framer-motion";
+
+const Cadre = motion(Stack);
 
 export default function Displayable({
     link,
@@ -25,7 +28,9 @@ export default function Displayable({
 
     return (
         <Tooltip title={tooltip}>
-            <Stack
+            <Cadre
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 1 }}
                 style={
                     img
                         ? {
@@ -61,7 +66,7 @@ export default function Displayable({
                         {text}
                     </span>
                 </Typography>
-            </Stack>
+            </Cadre>
         </Tooltip>
     );
 }

@@ -39,9 +39,31 @@ import DisplayableAdd from "./../../components/DisplayableAdd/DisplayableAdd";
 import Displayable from "../../components/Displayable/Displayable";
 import { quantum } from "ldrs";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
+import { motion, LazyMotion, domAnimation } from "framer-motion";
 import { useParams } from "react-router-dom";
 
 quantum.register();
+
+const Cadre = motion(Stack);
+
+const container = {
+    hidden: { opacity: 1, scale: 0 },
+    visible: {
+        opacity: 1,
+        scale: 1,
+        transition: {
+            delayChildren: 0.2,
+            staggerChildren: 0.1,
+        },
+    },
+};
+
+const item = {
+    hidden: { opacity: 0 },
+    visible: {
+        opacity: 1,
+    },
+};
 
 export default function Galery() {
     const gate = useGate();
@@ -597,53 +619,62 @@ export default function Galery() {
                         </Stack>
 
                         {currentAlbum.length > 0 ? (
-                            <Stack id="album-selected-container">
+                            <Cadre
+                                variants={container}
+                                initial="hidden"
+                                animate="visible"
+                                id="album-selected-container"
+                            >
                                 {currentAlbum.map((v, k) => (
-                                    <Stack key={k}>
-                                        <Checkbox
-                                            checked={checkedItems.includes(
-                                                v.filename
-                                            )}
-                                            variant="outlined"
-                                            className="checkbox-del"
-                                            color="danger"
-                                            onChange={() => {
-                                                handleAddToSupress(v.filename);
-                                            }}
-                                            checkedIcon={<ClearIcon />}
-                                        />
+                                    <LazyMotion features={domAnimation}>
+                                        <Cadre variants={item} key={k}>
+                                            <Checkbox
+                                                checked={checkedItems.includes(
+                                                    v.filename
+                                                )}
+                                                variant="outlined"
+                                                className="checkbox-del"
+                                                color="danger"
+                                                onChange={() => {
+                                                    handleAddToSupress(
+                                                        v.filename
+                                                    );
+                                                }}
+                                                checkedIcon={<ClearIcon />}
+                                            />
 
-                                        <AspectRatio
-                                            variant="none"
-                                            ratio="3/2"
-                                            className={`album-selected-ratio-files ${
-                                                v.type.split("/")[0]
-                                            }`}
-                                        >
-                                            {v.type.split("/")[0] ===
-                                            "video" ? (
-                                                <video
-                                                    loading="lazy"
-                                                    controls
-                                                    className="album-selected-files"
-                                                    src={`data:${v.type};base64,${v.b64}`}
-                                                />
-                                            ) : (
-                                                <img
-                                                    loading="lazy"
-                                                    onClick={() => {
-                                                        handleConsultImg(
-                                                            `data:${v.type};base64,${v.b64}`
-                                                        );
-                                                    }}
-                                                    className="album-selected-files"
-                                                    src={`data:${v.type};base64,${v.b64}`}
-                                                />
-                                            )}
-                                        </AspectRatio>
-                                    </Stack>
+                                            <AspectRatio
+                                                variant="none"
+                                                ratio="3/2"
+                                                className={`album-selected-ratio-files ${
+                                                    v.type.split("/")[0]
+                                                }`}
+                                            >
+                                                {v.type.split("/")[0] ===
+                                                "video" ? (
+                                                    <video
+                                                        loading="lazy"
+                                                        controls
+                                                        className="album-selected-files"
+                                                        src={`data:${v.type};base64,${v.b64}`}
+                                                    />
+                                                ) : (
+                                                    <img
+                                                        loading="lazy"
+                                                        onClick={() => {
+                                                            handleConsultImg(
+                                                                `data:${v.type};base64,${v.b64}`
+                                                            );
+                                                        }}
+                                                        className="album-selected-files"
+                                                        src={`data:${v.type};base64,${v.b64}`}
+                                                    />
+                                                )}
+                                            </AspectRatio>
+                                        </Cadre>
+                                    </LazyMotion>
                                 ))}
-                            </Stack>
+                            </Cadre>
                         ) : (
                             <Stack id="empty-album-container">
                                 <Typography level="h3" className="empty-album">
